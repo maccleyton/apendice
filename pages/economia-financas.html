@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economia e Finanças - Fórmulas Financeiras</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 2rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .breadcrumb a {
+            color: #22c55e;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #22c55e, #16a34a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #22c55e;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-wrapper {
+            position: relative;
+        }
+
+        .glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            filter: blur(40px);
+            opacity: 0.3;
+            background: #22c55e;
+        }
+
+        .card {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            overflow: hidden;
+            min-height: 300px;
+            border: 2px solid #22c55e;
+        }
+
+        .electric-border {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .electric-border rect {
+            animation: electric-flow 4s linear infinite;
+        }
+
+        .green-border { 
+            filter: drop-shadow(0 0 6px #22c55e) drop-shadow(0 0 12px #16a34a); 
+        }
+
+        .lightning-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            font-size: 12px;
+            color: #22c55e;
+            text-shadow: 0 0 10px #22c55e;
+            animation: lightning-flash 3s ease-in-out infinite;
+        }
+
+        .lightning-bolt:nth-child(1) { top: 10%; left: 5%; }
+        .lightning-bolt:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
+        .lightning-bolt:nth-child(3) { bottom: 15%; left: 12%; animation-delay: 1s; }
+        .lightning-bolt:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; }
+
+        .card-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #22c55e;
+        }
+
+        .formula-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .formula {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #22c55e;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #bbf7d0;
+            text-align: center;
+        }
+
+        .description {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .variables {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .variables-title {
+            color: #22c55e;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .variables-list {
+            color: #d1d5db;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .example {
+            background: rgba(34, 197, 94, 0.05);
+            border-left: 3px solid #22c55e;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-title {
+            color: #22c55e;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-content {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        @keyframes electric-flow {
+            0% { stroke-dashoffset: 800; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes lightning-flash {
+            0%, 100% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+            10% { 
+                opacity: 1;
+                transform: scale(1) translateY(-3px);
+            }
+            20% { 
+                opacity: 0.5;
+                transform: scale(0.8) translateY(-2px);
+            }
+            30% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="breadcrumb">
+                <a href="../index.html">Início</a> > Economia e Finanças
+            </nav>
+            <h1 class="main-title">Economia e Finanças</h1>
+            <p class="subtitle">Fórmulas para juros, investimentos, análise financeira e economia</p>
+        </header>
+
+        <!-- Matemática Financeira -->
+        <section class="section">
+            <h2 class="section-title">Matemática Financeira</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-1)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">JUROS SIMPLES</div>
+                            <h3 class="formula-title">Juros Simples</h3>
+                            <div class="formula">J = C × i × t</div>
+                            <p class="description">Cálculo de juros quando a taxa é aplicada apenas sobre o capital inicial. O juro é proporcional ao tempo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    J = juros (R$)<br>
+                                    C = capital inicial (R$)<br>
+                                    i = taxa de juros (a.m., a.a.)<br>
+                                    t = tempo (meses, anos)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">C = R$ 10.000, i = 1% a.m., t = 6 meses → J = R$ 600</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-2)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">MONTANTE SIMPLES</div>
+                            <h3 class="formula-title">Montante em Juros Simples</h3>
+                            <div class="formula">M = C(1 + it)</div>
+                            <p class="description">Montante final em regime de juros simples. Soma do capital inicial com os juros calculados.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    M = montante final (R$)<br>
+                                    C = capital inicial (R$)<br>
+                                    i = taxa de juros<br>
+                                    t = tempo
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">C = R$ 1.000, i = 2% a.m., t = 3 meses → M = R$ 1.060</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-3)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">JUROS COMPOSTOS</div>
+                            <h3 class="formula-title">Montante em Juros Compostos</h3>
+                            <div class="formula">M = C(1 + i)ⁿ</div>
+                            <p class="description">Montante em regime de juros compostos. Os juros são incorporados ao capital e rendem juros nos períodos seguintes.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    M = montante final (R$)<br>
+                                    C = capital inicial (R$)<br>
+                                    i = taxa de juros por período<br>
+                                    n = número de períodos
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">C = R$ 1.000, i = 1% a.m., n = 12 meses → M ≈ R$ 1.126,83</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-4)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DESCONTO COMERCIAL</div>
+                            <h3 class="formula-title">Desconto Simples</h3>
+                            <div class="formula">D = N × i × t</div>
+                            <p class="description">Desconto comercial (por fora) aplicado sobre o valor nominal de um título antes do vencimento.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    D = desconto (R$)<br>
+                                    N = valor nominal (R$)<br>
+                                    i = taxa de desconto<br>
+                                    t = tempo até o vencimento
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Valor atual:</div>
+                                <div class="example-content">A = N - D = N(1 - it)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Análise de Investimentos -->
+        <section class="section">
+            <h2 class="section-title">Análise de Investimentos</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-5)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">VPL</div>
+                            <h3 class="formula-title">Valor Presente Líquido</h3>
+                            <div class="formula">VPL = Σ[FCₜ/(1 + i)ᵗ] - Investimento</div>
+                            <p class="description">Valor presente de todos os fluxos de caixa futuros menos o investimento inicial. Critério de viabilidade de projetos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    VPL = valor presente líquido (R$)<br>
+                                    FCₜ = fluxo de caixa no período t<br>
+                                    i = taxa de desconto (TMA)<br>
+                                    t = período (0, 1, 2, ...)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Critério:</div>
+                                <div class="example-content">VPL > 0: projeto viável | VPL < 0: projeto inviável</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-6)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">TIR</div>
+                            <h3 class="formula-title">Taxa Interna de Retorno</h3>
+                            <div class="formula">Σ[FCₜ/(1 + TIR)ᵗ] = Investimento</div>
+                            <p class="description">Taxa de desconto que torna o VPL igual a zero. Representa a rentabilidade intrínseca do projeto.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    TIR = taxa interna de retorno (%)<br>
+                                    FCₜ = fluxos de caixa por período<br>
+                                    Equação resolve por iteração<br>
+                                    TMA = taxa mínima de atratividade
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Critério:</div>
+                                <div class="example-content">TIR > TMA: projeto viável</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-7" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-7)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PAYBACK</div>
+                            <h3 class="formula-title">Período de Payback</h3>
+                            <div class="formula">Payback = t tal que ΣFC ≤ Investimento</div>
+                            <p class="description">Tempo necessário para recuperar o investimento inicial através dos fluxos de caixa do projeto.</p>
+                            <div class="variables">
+                                <div class="variables-title">Métodos:</div>
+                                <div class="variables-list">
+                                    <strong>Simples:</strong> não considera o valor do dinheiro no tempo<br>
+                                    <strong>Descontado:</strong> considera taxa de desconto<br>
+                                    <strong>Payback < TMA:</strong> projeto pode ser aceito
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">Investimento: R$ 100.000 | Fluxo: R$ 25.000/ano → Payback = 4 anos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Análise de Mercado -->
+        <section class="section">
+            <h2 class="section-title">Análise de Mercado e Indicadores</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-8" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-8)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ROE</div>
+                            <h3 class="formula-title">Retorno sobre o Patrimônio</h3>
+                            <div class="formula">ROE = Lucro Líquido / Patrimônio Líquido × 100%</div>
+                            <p class="description">Indicador de rentabilidade que mede o retorno gerado para os acionistas sobre o capital próprio investido.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    ROE = retorno sobre patrimônio (%)<br>
+                                    Lucro Líquido = lucro após impostos (R$)<br>
+                                    Patrimônio Líquido = capital dos acionistas (R$)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Interpretação:</div>
+                                <div class="example-content">ROE > 15%: empresa rentável | Benchmarks por setor</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-9" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-9)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">P/L</div>
+                            <h3 class="formula-title">Preço/Lucro</h3>
+                            <div class="formula">P/L = Preço por Ação / Lucro por Ação</div>
+                            <p class="description">Múltiplo de valuation que indica quantos anos levaria para recuperar o investimento através dos lucros.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    P/L = preço/lucro (vezes)<br>
+                                    Preço por Ação = valor de mercado (R$)<br>
+                                    LPA = lucro líquido/ações emitidas (R$)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Interpretação:</div>
+                                <div class="example-content">P/L baixo: ação barata | P/L alto: crescimento esperado</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-10" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-10)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">WACC</div>
+                            <h3 class="formula-title">Custo Médio Ponderado de Capital</h3>
+                            <div class="formula">WACC = (E/V × Re) + (D/V × Rd × (1 - T))</div>
+                            <p class="description">Custo médio do capital da empresa, ponderando custos de capital próprio e de terceiros após impostos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    WACC = custo médio de capital (%)<br>
+                                    E/V = proporção de capital próprio<br>
+                                    D/V = proporção de endividamento<br>
+                                    Re = custo do capital próprio<br>
+                                    Rd = custo da dívida | T = alíquota de IR
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Aplicação:</div>
+                                <div class="example-content">Taxa de desconto para avaliação de projetos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Economia -->
+        <section class="section">
+            <h2 class="section-title">Economia</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-11" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-11)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ELASTICIDADE</div>
+                            <h3 class="formula-title">Elasticidade-Preço da Demanda</h3>
+                            <div class="formula">εpd = (%ΔQd) / (%ΔP)</div>
+                            <p class="description">Medida da sensibilidade da quantidade demandada em relação a mudanças no preço do produto.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    εpd = elasticidade-preço da demanda<br>
+                                    %ΔQd = variação percentual na quantidade<br>
+                                    %ΔP = variação percentual no preço
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Interpretação:</div>
+                                <div class="example-content">|εpd| > 1: elástica | |εpd| < 1: inelástica</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-12" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-12)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PIB</div>
+                            <h3 class="formula-title">Produto Interno Bruto</h3>
+                            <div class="formula">PIB = C + I + G + (X - M)</div>
+                            <p class="description">Soma de todos os bens e serviços finais producidos em um país em um determinado período.</p>
+                            <div class="variables">
+                                <div class="variables-title">Componentes:</div>
+                                <div class="variables-list">
+                                    C = consumo das famílias<br>
+                                    I = investimento das empresas<br>
+                                    G = gastos do governo<br>
+                                    X = exportações | M = importações
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">PIB per capita:</div>
+                                <div class="example-content">PIB / População</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-13" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#22c55e" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-13)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">INFLAÇÃO</div>
+                            <h3 class="formula-title">Taxa de Inflação</h3>
+                            <div class="formula">π = [(IPCAₜ - IPCAₜ₋₁) / IPCAₜ₋₁] × 100%</div>
+                            <p class="description">Taxa de variação do índice de preços ao consumidor em um determinado período.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    π = taxa de inflação (%)<br>
+                                    IPCAₜ = índice no período atual<br>
+                                    IPCAₜ₋₁ = índice no período anterior<br>
+                                    <strong>IPCA:</strong> Índice de Preços ao Consumidor Amplo
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Meta do BC:</div>
+                                <div class="example-content">3,25% a.a. ± 1,5 p.p.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

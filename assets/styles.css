@@ -1,0 +1,420 @@
+/* Apêndice de Fórmulas - Estilos Compartilhados */
+
+/* Reset e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    padding: 2rem 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header padrão */
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.breadcrumb {
+    margin-bottom: 1rem;
+    opacity: 0.7;
+}
+
+.breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.main-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+/* Seções */
+.section {
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+/* Grid responsivo */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+/* Card wrapper */
+.card-wrapper {
+    position: relative;
+}
+
+.glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    filter: blur(40px);
+    opacity: 0.3;
+    background: var(--primary-color);
+}
+
+/* Card principal */
+.card {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+    border-radius: 1rem;
+    padding: 2rem;
+    overflow: hidden;
+    min-height: 300px;
+    border: 2px solid var(--primary-color);
+}
+
+/* SVG Border animado */
+.electric-border {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.electric-border rect {
+    animation: electric-flow 4s linear infinite;
+}
+
+.colored-border { 
+    filter: drop-shadow(0 0 6px var(--primary-color)) drop-shadow(0 0 12px var(--secondary-color)); 
+}
+
+/* Lightning bolts */
+.lightning-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.lightning-bolt {
+    position: absolute;
+    font-size: 12px;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
+    animation: lightning-flash 3s ease-in-out infinite;
+}
+
+.lightning-bolt:nth-child(1) { top: 10%; left: 5%; }
+.lightning-bolt:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
+.lightning-bolt:nth-child(3) { bottom: 15%; left: 12%; animation-delay: 1s; }
+.lightning-bolt:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; }
+
+/* Conteúdo do card */
+.card-content {
+    position: relative;
+    z-index: 10;
+}
+
+.card-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.formula-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.formula {
+    background: rgba(var(--primary-rgb), 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.description {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.variables {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.variables-title {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.variables-list {
+    color: #d1d5db;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.example {
+    background: rgba(var(--primary-rgb), 0.05);
+    border-left: 3px solid var(--primary-color);
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.example-title {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.example-content {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.units {
+    background: rgba(var(--primary-rgb), 0.05);
+    border-left: 3px solid var(--primary-color);
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.units-title {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.units-list {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+/* Esquemas especiais */
+.dna-structure {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+}
+
+.dna-pair {
+    background: rgba(var(--primary-rgb), 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.pair-name {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.math-structure {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.math-term {
+    background: rgba(var(--primary-rgb), 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    font-size: 0.85rem;
+}
+
+.math-operator {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin: 0 0.5rem;
+}
+
+/* Cores por disciplina */
+.mathematics {
+    --primary-color: #3b82f6;
+    --secondary-color: #1d4ed8;
+    --primary-rgb: 59, 130, 246;
+}
+
+.physics {
+    --primary-color: #10b981;
+    --secondary-color: #059669;
+    --primary-rgb: 16, 185, 129;
+}
+
+.chemistry {
+    --primary-color: #f97316;
+    --secondary-color: #ea580c;
+    --primary-rgb: 249, 115, 22;
+}
+
+.biology {
+    --primary-color: #8b5cf6;
+    --secondary-color: #7c3aed;
+    --primary-rgb: 139, 92, 246;
+}
+
+.computing {
+    --primary-color: #06b6d4;
+    --secondary-color: #0891b2;
+    --primary-rgb: 6, 182, 212;
+}
+
+.engineering {
+    --primary-color: #ef4444;
+    --secondary-color: #dc2626;
+    --primary-rgb: 239, 68, 68;
+}
+
+.economics {
+    --primary-color: #22d3ee;
+    --secondary-color: #06b6d4;
+    --primary-rgb: 34, 211, 238;
+}
+
+.others {
+    --primary-color: #6b7280;
+    --secondary-color: #4b5563;
+    --primary-rgb: 107, 114, 128;
+}
+
+/* Navegação */
+.nav-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.nav-link:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Animações */
+@keyframes electric-flow {
+    0% { stroke-dashoffset: 800; }
+    100% { stroke-dashoffset: 0; }
+}
+
+@keyframes lightning-flash {
+    0%, 100% { 
+        opacity: 0;
+        transform: scale(0.5) translateY(0);
+    }
+    10% { 
+        opacity: 1;
+        transform: scale(1) translateY(-3px);
+    }
+    20% { 
+        opacity: 0.5;
+        transform: scale(0.8) translateY(-2px);
+    }
+    30% { 
+        opacity: 0;
+        transform: scale(0.5) translateY(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .dna-structure {
+        grid-template-columns: 1fr;
+    }
+
+    .math-structure {
+        flex-direction: column;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .formula {
+        font-size: 1rem;
+    }
+}

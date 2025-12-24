@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacologia - Fórmulas Médicas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 2rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .breadcrumb a {
+            color: #ec4899;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ec4899, #db2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ec4899;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-wrapper {
+            position: relative;
+        }
+
+        .glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            filter: blur(40px);
+            opacity: 0.3;
+            background: #ec4899;
+        }
+
+        .card {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            overflow: hidden;
+            min-height: 300px;
+            border: 2px solid #ec4899;
+        }
+
+        .electric-border {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .electric-border rect {
+            animation: electric-flow 4s linear infinite;
+        }
+
+        .pink-border { 
+            filter: drop-shadow(0 0 6px #ec4899) drop-shadow(0 0 12px #db2777); 
+        }
+
+        .lightning-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            font-size: 12px;
+            color: #ec4899;
+            text-shadow: 0 0 10px #ec4899;
+            animation: lightning-flash 3s ease-in-out infinite;
+        }
+
+        .lightning-bolt:nth-child(1) { top: 10%; left: 5%; }
+        .lightning-bolt:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
+        .lightning-bolt:nth-child(3) { bottom: 15%; left: 12%; animation-delay: 1s; }
+        .lightning-bolt:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; }
+
+        .card-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #ec4899;
+        }
+
+        .formula-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .formula {
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px solid #ec4899;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #f9a8d4;
+            text-align: center;
+        }
+
+        .description {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .variables {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .variables-title {
+            color: #ec4899;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .variables-list {
+            color: #d1d5db;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .example {
+            background: rgba(236, 72, 153, 0.05);
+            border-left: 3px solid #ec4899;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-title {
+            color: #ec4899;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-content {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        @keyframes electric-flow {
+            0% { stroke-dashoffset: 800; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes lightning-flash {
+            0%, 100% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+            10% { 
+                opacity: 1;
+                transform: scale(1) translateY(-3px);
+            }
+            20% { 
+                opacity: 0.5;
+                transform: scale(0.8) translateY(-2px);
+            }
+            30% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="breadcrumb">
+                <a href="../index.html">Início</a> > Farmacologia
+            </nav>
+            <h1 class="main-title">Farmacologia</h1>
+            <p class="subtitle">Fórmulas para dosagem, concentração e farmacocinética</p>
+        </header>
+
+        <!-- Dosagem -->
+        <section class="section">
+            <h2 class="section-title">Dosagem e Concentração</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-1)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DOSE</div>
+                            <h3 class="formula-title">Cálculo de Dose</h3>
+                            <div class="formula">Dose = Dose(mg/kg) × Peso(kg)</div>
+                            <p class="description">Cálculo da dose total de medicamento baseado na dose por quilograma de peso corporal e no peso do paciente.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    Dose = dose total (mg)<br>
+                                    Dose(mg/kg) = dose por quilograma<br>
+                                    Peso = peso do paciente (kg)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">Dose: 10 mg/kg | Peso: 70 kg → Dose total: 700 mg</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-2)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CONCENTRAÇÃO</div>
+                            <h3 class="formula-title">Concentração Percentual</h3>
+                            <div class="formula">% = (massa_soluto/massa_solução) × 100</div>
+                            <p class="description">Concentração em porcentagem massa/volume ou massa/massa. Muito usada em preparações farmacêuticas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Tipos:</div>
+                                <div class="variables-list">
+                                    <strong>% m/v:</strong> g de soluto/100 mL de solução<br>
+                                    <strong>% m/m:</strong> g de soluto/100 g de solução<br>
+                                    <strong>% v/v:</strong> mL de soluto/100 mL de solução
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">5% m/v = 5g/100mL = 50mg/mL</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-3)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DILUIÇÃO</div>
+                            <h3 class="formula-title">Lei da Diluição</h3>
+                            <div class="formula">C₁V₁ = C₂V₂</div>
+                            <p class="description">Lei fundamental da diluição. A concentração vezes o volume permanece constante durante a diluição.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    C₁ = concentração inicial<br>
+                                    V₁ = volume inicial<br>
+                                    C₂ = concentração final<br>
+                                    V₂ = volume final = V₁ + V_solvente
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">C₁=10%, V₁=10mL → para C₂=2%: V₂=50mL</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-4)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">MOLARIDADE</div>
+                            <h3 class="formula-title">Concentração Molar</h3>
+                            <div class="formula">M = n/V = (massa/MM)/V</div>
+                            <p class="description">Concentração em moles por litro. Fundamental para cálculos estequiométricos em farmácia.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    M = molaridade (mol/L)<br>
+                                    n = número de mols (mol)<br>
+                                    V = volume da solução (L)<br>
+                                    massa = massa do soluto (g)<br>
+                                    MM = massa molar (g/mol)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">NaCl 58,5g/L = 1 mol/L = 1 M</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Farmacocinética -->
+        <section class="section">
+            <h2 class="section-title">Farmacocinética</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-5)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CLEARANCE</div>
+                            <h3 class="formula-title">Clearance Renal</h3>
+                            <div class="formula">Cl = (U × V) / P</div>
+                            <p class="description">Volume de plasma depurado do fármaco por unidade de tempo. Medida da capacidade de eliminação dos rins.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    Cl = clearance (mL/min)<br>
+                                    U = concentração urinária (mg/mL)<br>
+                                    V = fluxo urinário (mL/min)<br>
+                                    P = concentração plasmática (mg/mL)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Interpretação:</div>
+                                <div class="example-content">Cl > 120 mL/min: boa função renal</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-6)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">MEIA-VIDA</div>
+                            <h3 class="formula-title">Meia-vida Biológica</h3>
+                            <div class="formula">t₁/₂ = 0,693 × Vd / Cl</div>
+                            <p class="description">Tempo necessário para a concentração plasmática reduzir à metade. Parâmetro fundamental da farmacocinética.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    t₁/₂ = meia-vida (horas)<br>
+                                    Vd = volume de distribuição (L)<br>
+                                    Cl = clearance (L/h)<br>
+                                    0,693 = ln(2)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">Vd = 50L, Cl = 5L/h → t₁/₂ = 6,93h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-7" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-7)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ÁREA SOB A CURVA</div>
+                            <h3 class="formula-title">AUC (Area Under Curve)</h3>
+                            <div class="formula">AUC = Dose / Cl</div>
+                            <p class="description">Área sob a curva concentração vs tempo. Medida da exposição total do organismo ao fármaco.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    AUC = área sob a curva (mg·h/L)<br>
+                                    Dose = dose administrada (mg)<br>
+                                    Cl = clearance (L/h)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Aplicação:</div>
+                                <div class="example-content">Bioequivalência, biodisponibilidade</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-8" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-8)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">BIODISPONIBILIDADE</div>
+                            <h3 class="formula-title">Biodisponibilidade Absoluta</h3>
+                            <div class="formula">F = (AUC_oral / AUC_iv) × 100%</div>
+                            <p class="description">Fração da dose oral que atinge a circulação sistêmica em comparação com a administração intravenosa.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    F = biodisponibilidade (% ou decimal)<br>
+                                    AUC_oral = AUC após administração oral<br>
+                                    AUC_iv = AUC após administração IV<br>
+                                    <strong>Bioequivalência:</strong> F ≥ 80%
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Fatores:</div>
+                                <div class="example-content">Absorção, metabolismo hepático, efeito de primeira passagem</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dosagem por Superfície Corporal -->
+        <section class="section">
+            <h2 class="section-title">Dosagem Pediátrica</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-9" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-9)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">SUPERFÍCIE CORPORAL</div>
+                            <h3 class="formula-title">Área de Superfície Corporal</h3>
+                            <div class="formula">ASC = √[(altura × peso) / 3600]</div>
+                            <p class="description">Cálculo da área de superfície corporal usando a fórmula de Mosteller. Base para dosagem pediátrica.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    ASC = área de superfície corporal (m²)<br>
+                                    altura = altura (cm)<br>
+                                    peso = peso (kg)<br>
+                                    <strong>Valor médio adulto:</strong> 1,73 m²
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">100cm, 20kg → ASC = √[(100×20)/3600] = 0,74 m²</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-10" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-10)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DOSE PEDIÁTRICA</div>
+                            <h3 class="formula-title">Dosagem por Superfície</h3>
+                            <div class="formula">Dose_pediátrica = Dose_adulto × (ASC_criança/ASC_adulto)</div>
+                            <p class="description">Cálculo de dose pediátrica baseado na proporção da área de superfície corporal em relação ao adulto.</p>
+                            <div class="variables">
+                                <div class="variables-title">Métodos:</div>
+                                <div class="variables-list">
+                                    <strong>Por superfície:</strong> mais preciso, usado em oncologia<br>
+                                    <strong>Por peso:</strong> mais comum, usar quando superfície não disponível<br>
+                                    <strong>Por idade:</strong> menos preciso, apenas orientação
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">Dose adulto: 100mg | ASC criança: 0,74m² | ASC adulto: 1,73m² → Dose: 43mg</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interações Medicamentosas -->
+        <section class="section">
+            <h2 class="section-title">Interações e Contraindicações</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-11" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-11)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ÍNDICE TERAPÊUTICO</div>
+                            <h3 class="formula-title">Índice Terapêutico</h3>
+                            <div class="formula">IT = LD₅₀ / ED₅₀</div>
+                            <p class="description">Razão entre a dose letal para 50% dos animais e a dose efetiva para 50% dos animais. Medida de segurança do fármaco.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    IT = índice terapêutico (adimensional)<br>
+                                    LD₅₀ = dose letal para 50% dos animais (mg/kg)<br>
+                                    ED₅₀ = dose efetiva para 50% dos animais (mg/kg)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Interpretação:</div>
+                                <div class="example-content">IT > 10: fármaco seguro | IT < 2: fármaco perigoso</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="pink-gradient-12" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#pink-gradient-12)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">MARGEM DE SEGURANÇA</div>
+                            <h3 class="formula-title">Margem de Segurança</h3>
+                            <div class="formula">MS = (DT - DE) / DE × 100%</div>
+                            <p class="description">Margem entre a dose tóxica e a dose efetiva, expressa em porcentagem. Complementa o índice terapêutico.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    MS = margem de segurança (%)<br>
+                                    DT = dose tóxica (mg/kg)<br>
+                                    DE = dose efetiva (mg/kg)<br>
+                                    <strong>MS > 100%:</strong> fármaco relativamente seguro
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">DT = 200 mg/kg, DE = 50 mg/kg → MS = 300%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

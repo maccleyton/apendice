@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álgebra Básica - Fórmulas Matemáticas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 2rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .breadcrumb a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-wrapper {
+            position: relative;
+        }
+
+        .glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            filter: blur(40px);
+            opacity: 0.3;
+            background: #3b82f6;
+        }
+
+        .card {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            overflow: hidden;
+            min-height: 300px;
+            border: 2px solid #3b82f6;
+        }
+
+        .electric-border {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .electric-border rect {
+            animation: electric-flow 4s linear infinite;
+        }
+
+        .cyan-border { 
+            filter: drop-shadow(0 0 6px #3b82f6) drop-shadow(0 0 12px #1d4ed8); 
+        }
+
+        .lightning-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            font-size: 12px;
+            color: #3b82f6;
+            text-shadow: 0 0 10px #3b82f6;
+            animation: lightning-flash 3s ease-in-out infinite;
+        }
+
+        .lightning-bolt:nth-child(1) { top: 10%; left: 5%; }
+        .lightning-bolt:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
+        .lightning-bolt:nth-child(3) { bottom: 15%; left: 12%; animation-delay: 1s; }
+        .lightning-bolt:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; }
+
+        .card-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #3b82f6;
+        }
+
+        .formula-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .formula {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid #3b82f6;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #e0e7ff;
+            text-align: center;
+        }
+
+        .description {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .variables {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .variables-title {
+            color: #3b82f6;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .variables-list {
+            color: #d1d5db;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        @keyframes electric-flow {
+            0% { stroke-dashoffset: 800; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes lightning-flash {
+            0%, 100% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+            10% { 
+                opacity: 1;
+                transform: scale(1) translateY(-3px);
+            }
+            20% { 
+                opacity: 0.5;
+                transform: scale(0.8) translateY(-2px);
+            }
+            30% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="breadcrumb">
+                <a href="../index.html">Início</a> > Álgebra Básica
+            </nav>
+            <h1 class="main-title">Álgebra Básica</h1>
+            <p class="subtitle">Produtos notáveis, equações e identidades algébricas fundamentais</p>
+        </header>
+
+        <!-- Álgebra Básica - Produtos Notáveis -->
+        <section class="section">
+            <h2 class="section-title">Álgebra Básica - Produtos Notáveis</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-1)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">QUADRADO DA SOMA</div>
+                            <h3 class="formula-title">(a + b)² = a² + 2ab + b²</h3>
+                            <p class="description">Quadrado da soma de dois termos. Expande o produto de um binômio ao quadrado.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b = quaisquer números ou expressões<br>
+                                    Resultado: soma dos quadrados + 2 vezes o produto
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-2)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">QUADRADO DA DIFERENÇA</div>
+                            <h3 class="formula-title">(a - b)² = a² - 2ab + b²</h3>
+                            <p class="description">Quadrado da diferença de dois termos. Similar ao quadrado da soma, mas com sinal negativo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b = quaisquer números ou expressões<br>
+                                    Resultado: soma dos quadrados - 2 vezes o produto
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-3)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PRODUTO NOTÁVEL</div>
+                            <h3 class="formula-title">(a + b)(a - b) = a² - b²</h3>
+                            <p class="description">Produto da soma pela diferença. Resulta sempre na diferença dos quadrados.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b = quaisquer números ou expressões<br>
+                                    Resultado: quadrado do primeiro menos quadrado do segundo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-4)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CUBO DA SOMA</div>
+                            <h3 class="formula-title">(a + b)³ = a³ + 3a²b + 3ab² + b³</h3>
+                            <p class="description">Cubo da soma de dois termos. Expansão do produto de três binômios idênticos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b = quaisquer números ou expressões<br>
+                                    Desenvolvimento: cubos + 3 vezes produtos cruzados
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-5)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CUBO DA DIFERENÇA</div>
+                            <h3 class="formula-title">(a - b)³ = a³ - 3a²b + 3ab² - b³</h3>
+                            <p class="description">Cubo da diferença de dois termos. Similar ao cubo da soma, mas com sinais alternados.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b = quaisquer números ou expressões<br>
+                                    Desenvolvimento: cubos - 3 vezes produtos cruzados
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equação do 2º Grau -->
+        <section class="section">
+            <h2 class="section-title">Equação do 2º Grau</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-6)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">BHASKARA</div>
+                            <h3 class="formula-title">x = (-b ± √(b² - 4ac)) / 2a</h3>
+                            <p class="description">Fórmula de Bhaskara para resolver equações do segundo grau ax² + bx + c = 0.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    x = raízes da equação<br>
+                                    a = coeficiente de x²<br>
+                                    b = coeficiente de x<br>
+                                    c = termo independente
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-7" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-7)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DISCRIMINANTE</div>
+                            <h3 class="formula-title">Δ = b² - 4ac</h3>
+                            <p class="description">Discriminante da equação quadrática. Determina a natureza das raízes.</p>
+                            <div class="variables">
+                                <div class="variables-title">Casos:</div>
+                                <div class="variables-list">
+                                    Δ > 0: duas raízes reais distintas<br>
+                                    Δ = 0: duas raízes reais iguais<br>
+                                    Δ < 0: raízes complexas
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-8" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-8)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">RELAÇÕES DE GIRARD</div>
+                            <h3 class="formula-title">x₁ + x₂ = -b/a | x₁ · x₂ = c/a</h3>
+                            <p class="description">Relações entre as raízes de uma equação quadrática sem resolver a equação.</p>
+                            <div class="variables">
+                                <div class="variables-title">Relações:</div>
+                                <div class="variables-list">
+                                    Soma das raízes: x₁ + x₂ = -b/a<br>
+                                    Produto das raízes: x₁ · x₂ = c/a
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Geometria Plana - Áreas -->
+        <section class="section">
+            <h2 class="section-title">Geometria Plana - Áreas</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-9" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-9)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">QUADRADO</div>
+                            <h3 class="formula-title">A = l²</h3>
+                            <p class="description">Área de um quadrado. Baseado no comprimento do lado.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    A = área do quadrado<br>
+                                    l = comprimento do lado
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-10" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-10)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">RETÂNGULO</div>
+                            <h3 class="formula-title">A = b × h</h3>
+                            <p class="description">Área de um retângulo. Produto da base pela altura.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    A = área do retângulo<br>
+                                    b = base<br>
+                                    h = altura
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-11" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-11)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">TRIÂNGULO</div>
+                            <h3 class="formula-title">A = (b × h) / 2</h3>
+                            <p class="description">Área de um triângulo. Metade do produto da base pela altura.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    A = área do triângulo<br>
+                                    b = base<br>
+                                    h = altura perpendicular à base
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-12" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-12)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">TRIÂNGULO - FÓRMULA DE HERÃO</div>
+                            <h3 class="formula-title">A = √[s(s-a)(s-b)(s-c)]</h3>
+                            <p class="description">Área de um triângulo conhecida apenas os três lados.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    s = (a+b+c)/2 = semiperímetro<br>
+                                    a, b, c = lados do triângulo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-13" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-13)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CÍRCULO</div>
+                            <h3 class="formula-title">A = πr²</h3>
+                            <p class="description">Área de um círculo. Baseada no raio e na constante π.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    A = área do círculo<br>
+                                    π ≈ 3,14159<br>
+                                    r = raio do círculo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-14" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-14)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PITÁGORAS</div>
+                            <h3 class="formula-title">a² + b² = c²</h3>
+                            <p class="description">Teorema de Pitágoras. Relação entre os lados de um triângulo retângulo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b = catetos (lados perpendiculares)<br>
+                                    c = hipotenusa (lado oposto ao ângulo reto)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Geometria Espacial - Volumes -->
+        <section class="section">
+            <h2 class="section-title">Geometria Espacial - Volumes</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-15" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-15)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CUBO</div>
+ class="formula-title                            <h3">V = a³</h3>
+                            <p class="description">Volume de um cubo. Cubo do comprimento da aresta.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    V = volume do cubo<br>
+                                    a = comprimento da aresta
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-16" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-16)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PARALELEPÍPEDO</div>
+                            <h3 class="formula-title">V = a × b × c</h3>
+                            <p class="description">Volume de um paralelepípedo. Produto das três dimensões.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    V = volume do paralelepípedo<br>
+                                    a, b, c = dimensões do sólido
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-17" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-17)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CILINDRO</div>
+                            <h3 class="formula-title">V = πr²h</h3>
+                            <p class="description">Volume de um cilindro circular. Área da base vezes altura.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    V = volume do cilindro<br>
+                                    r = raio da base circular<br>
+                                    h = altura do cilindro
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-18" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-18)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CONE</div>
+                            <h3 class="formula-title">V = (πr²h) / 3</h3>
+                            <p class="description">Volume de um cone circular. Um terço do volume do cilindro correspondente.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    V = volume do cone<br>
+                                    r = raio da base<br>
+                                    h = altura do cone
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-19" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-19)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ESFERA</div>
+                            <h3 class="formula-title">V = (4πr³) / 3</h3>
+                            <p class="description">Volume de uma esfera. Quatro terços de π vezes o cubo do raio.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    V = volume da esfera<br>
+                                    r = raio da esfera<br>
+                                    π ≈ 3,14159
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trigonometria -->
+        <section class="section">
+            <h2 class="section-title">Trigonometria</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-20" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-20)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">RELAÇÃO FUNDAMENTAL</div>
+                            <h3 class="formula-title">sen²θ + cos²θ = 1</h3>
+                            <p class="description">Relação fundamental da trigonometria. Base para todas as identidades trigonométricas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    θ = ângulo em radianos ou graus<br>
+                                    sen = seno do ângulo<br>
+                                    cos = cosseno do ângulo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-21" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-21)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">LEI DOS SENOS</div>
+                            <h3 class="formula-title">a/sen A = b/sen B = c/sen C = 2R</h3>
+                            <p class="description">Lei dos senos. Relação entre os lados e ângulos de um triângulo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b, c = lados do triângulo<br>
+                                    A, B, C = ângulos opostos<br>
+                                    R = raio da circunferência circunscrita
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-22" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-22)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">LEI DOS COSSENOS</div>
+                            <h3 class="formula-title">a² = b² + c² - 2bc·cos A</h3>
+                            <p class="description">Lei dos cossenos. Generalização do teorema de Pitágoras para triângulos não retângulos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a = lado oposto ao ângulo A<br>
+                                    b, c = outros dois lados<br>
+                                    A = ângulo entre os lados b e c
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Matemática Financeira -->
+        <section class="section">
+            <h2 class="section-title">Matemática Financeira</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-23" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-23)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">JUROS COMPOSTOS</div>
+                            <h3 class="formula-title">M = C(1 + i)ⁿ</h3>
+                            <p class="description">Montante de juros compostos. Capital inicial vezes (1 + taxa) elevado ao número de períodos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    M = montante final<br>
+                                    C = capital inicial<br>
+                                    i = taxa de juros por período<br>
+                                    n = número de períodos
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-24" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-24)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">JUROS SIMPLES</div>
+                            <h3 class="formula-title">J = C × i × t</h3>
+                            <p class="description">Juros simples. Juro calculado apenas sobre o capital inicial.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    J = juro calculado<br>
+                                    C = capital inicial<br>
+                                    i = taxa de juros<br>
+                                    t = tempo de aplicação
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estatística -->
+        <section class="section">
+            <h2 class="section-title">Estatística</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-25" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-25)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">MÉDIA ARITMÉTICA</div>
+                            <h3 class="formula-title">x̄ = Σx / n</h3>
+                            <p class="description">Média aritmética simples. Soma de todos os valores dividida pela quantidade de elementos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    x̄ = média aritmética<br>
+                                    Σx = soma de todos os valores<br>
+                                    n = número de elementos
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-26" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-26)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DESVIO PADRÃO</div>
+                            <h3 class="formula-title">σ = √[Σ(x - x̄)² / n]</h3>
+                            <p class="description">Desvio padrão. Medida de dispersão dos dados em relação à média.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    σ = desvio padrão<br>
+                                    x = valores dos dados<br>
+                                    x̄ = média dos dados<br>
+                                    n = número de elementos
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Análise Combinatória -->
+        <section class="section">
+            <h2 class="section-title">Análise Combinatória</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-27" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-27)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ARRANJO</div>
+                            <h3 class="formula-title">Aₙ,ₚ = n! / (n-p)!</h3>
+                            <p class="description">Arranjo de n elementos tomados p a p. Considera a ordem dos elementos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    n = total de elementos<br>
+                                    p = elementos escolhidos<br>
+                                    ! = fatorial
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-28" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-28)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">COMBINAÇÃO</div>
+                            <h3 class="formula-title">Cₙ,ₚ = n! / [p!(n-p)!]</h3>
+                            <p class="description">Combinação de n elementos tomados p a p. NÃO considera a ordem dos elementos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    n = total de elementos<br>
+                                    p = elementos escolhidos<br>
+                                    ! = fatorial
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-29" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-29)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PERMUTAÇÃO</div>
+                            <h3 class="formula-title">Pₙ = n!</h3>
+                            <p class="description">Permutação de n elementos. Número de arranjos de todos os n elementos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    Pₙ = permutação de n elementos<br>
+                                    n = número de elementos<br>
+                                    ! = fatorial
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progressões -->
+        <section class="section">
+            <h2 class="section-title">Progressões</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-30" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-30)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PA - TERMO GERAL</div>
+                            <h3 class="formula-title">aₙ = a₁ + (n-1)r</h3>
+                            <p class="description">Termo geral de uma progressão aritmética. Qualquer termo pode ser calculado.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    aₙ = n-ésimo termo<br>
+                                    a₁ = primeiro termo<br>
+                                    r = razão da progressão<br>
+                                    n = posição do termo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-31" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-31)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PA - SOMA</div>
+                            <h3 class="formula-title">Sₙ = n(a₁ + aₙ) / 2</h3>
+                            <p class="description">Soma dos n primeiros termos de uma progressão aritmética.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    Sₙ = soma dos n primeiros termos<br>
+                                    a₁ = primeiro termo<br>
+                                    aₙ = n-ésimo termo<br>
+                                    n = número de termos
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-32" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-32)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PG - TERMO GERAL</div>
+                            <h3 class="formula-title">aₙ = a₁ · qⁿ⁻¹</h3>
+                            <p class="description">Termo geral de uma progressão geométrica. Crescimento ou decrescimento exponencial.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    aₙ = n-ésimo termo<br>
+                                    a₁ = primeiro termo<br>
+                                    q = razão da progressão<br>
+                                    n = posição do termo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-33" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-33)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PG - SOMA INFINITA</div>
+                            <h3 class="formula-title">S∞ = a₁ / (1 - q) |q| < 1</h3>
+                            <p class="description">Soma infinita de uma progressão geométrica. Válida apenas quando |q| < 1.</p>
+                            <div class="variables">
+                                <div class="variables-title">Condição:</div>
+                                <div class="variables-list">
+                                    S∞ = soma infinita<br>
+                                    a₁ = primeiro termo<br>
+                                    q = razão da progressão<br>
+                                    |q| < 1 (convergência)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cálculo - Derivadas -->
+        <section class="section">
+            <h2 class="section-title">Cálculo - Derivadas</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-34" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-34)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DERIVADA DE POTÊNCIA</div>
+                            <h3 class="formula-title">d/dx(xⁿ) = n·xⁿ⁻¹</h3>
+                            <p class="description">Regra da potência para derivação. Deriva qualquer potência de x.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    n = expoente qualquer<br>
+                                    x = variável<br>
+                                    d/dx = derivada em relação a x
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-35" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-35)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">REGRA DA CADEIA</div>
+                            <h3 class="formula-title">d/dx[f(g(x))] = f'(g(x))·g'(x)</h3>
+                            <p class="description">Regra da cadeia. Derivada de uma função composta.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    f, g = funções<br>
+                                    f' = derivada de f<br>
+                                    g' = derivada de g<br>
+                                    g(x) = função interna
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-36" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-36)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DERIVADA DA EXPONENCIAL</div>
+                            <h3 class="formula-title">d/dx(eˣ) = eˣ</h3>
+                            <p class="description">Derivada da função exponencial. A função exponencial é sua própria derivada.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    e ≈ 2,71828 (número de Euler)<br>
+                                    x = variável<br>
+                                    d/dx = derivada em relação a x
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-37" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-37)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DERIVADA DO LOGARITMO</div>
+                            <h3 class="formula-title">d/dx(ln x) = 1/x</h3>
+                            <p class="description">Derivada do logaritmo natural. ln x é o logaritmo na base e.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    ln = logaritmo natural (base e)<br>
+                                    x = variável (x > 0)<br>
+                                    d/dx = derivada em relação a x
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cálculo - Integrais -->
+        <section class="section">
+            <h2 class="section-title">Cálculo - Integrais</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-38" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-38)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">INTEGRAL DE POTÊNCIA</div>
+                            <h3 class="formula-title">∫xⁿ dx = xⁿ⁺¹/(n+1) + C</h3>
+                            <p class="description">Integral indefinida de uma potência. Para n ≠ -1. Inclui constante de integração.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    n = expoente qualquer (n ≠ -1)<br>
+                                    C = constante de integração<br>
+                                    ∫ = símbolo de integral<br>
+                                    dx = diferencial de x
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-39" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-39)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">INTEGRAL DEFINIDA</div>
+                            <h3 class="formula-title">∫ₐᵇ f(x)dx = F(b) - F(a)</h3>
+                            <p class="description">Teorema Fundamental do Cálculo. Área sob a curva de f(x) entre a e b.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    F(x) = primitiva de f(x)<br>
+                                    a, b = limites de integração<br>
+                                    ∫ₐᵇ = integral definida de a até b
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <h2 class="section-title">Produtos Notáveis</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-1)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PRODUTO NOTÁVEL</div>
+                            <h3 class="formula-title">Quadrado da Soma</h3>
+                            <div class="formula">(a + b)² = a² + 2ab + b²</div>
+                            <p class="description">O quadrado da soma de dois termos é igual ao quadrado do primeiro termo, mais duas vezes o produto dos termos, mais o quadrado do segundo termo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b = quaisquer números ou expressões algébricas
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-2)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PRODUTO NOTÁVEL</div>
+                            <h3 class="formula-title">Quadrado da Diferença</h3>
+                            <div class="formula">(a - b)² = a² - 2ab + b²</div>
+                            <p class="description">O quadrado da diferença de dois termos é igual ao quadrado do primeiro termo, menos duas vezes o produto dos termos, mais o quadrado do segundo termo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b = quaisquer números ou expressões algébricas
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-3)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PRODUTO NOTÁVEL</div>
+                            <h3 class="formula-title">Produto da Soma pela Diferença</h3>
+                            <div class="formula">(a + b)(a - b) = a² - b²</div>
+                            <p class="description">O produto da soma pela diferença de dois termos é igual à diferença dos quadrados desses termos. Esta é uma das identidades mais importantes da álgebra.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b = quaisquer números ou expressões algébricas
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-4)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PRODUTO NOTÁVEL</div>
+                            <h3 class="formula-title">Cubo da Soma</h3>
+                            <div class="formula">(a + b)³ = a³ + 3a²b + 3ab² + b³</div>
+                            <p class="description">O cubo da soma de dois termos contém quatro termos: o cubo do primeiro, três vezes o quadrado do primeiro vezes o segundo, três vezes o primeiro vezes o quadrado do segundo, e o cubo do segundo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a, b = quaisquer números ou expressões algébricas
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equação do 2º Grau -->
+        <section class="section">
+            <h2 class="section-title">Equação do 2º Grau</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-5)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">BHASKARA</div>
+                            <h3 class="formula-title">Fórmula de Bhaskara</h3>
+                            <div class="formula">x = (-b ± √(b² - 4ac)) / 2a</div>
+                            <p class="description">Fórmula geral para resolver equações do segundo grau. Fornece as duas raízes da equação ax² + bx + c = 0.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    x = raízes da equação<br>
+                                    a = coeficiente de x²<br>
+                                    b = coeficiente de x<br>
+                                    c = termo independente
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-6)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DISCRIMINANTE</div>
+                            <h3 class="formula-title">Discriminante (Delta)</h3>
+                            <div class="formula">Δ = b² - 4ac</div>
+                            <p class="description">O discriminante determina a natureza das raízes da equação quadrática. Seu valor indica quantas raízes reais existem.</p>
+                            <div class="variables">
+                                <div class="variables-title">Interpretação:</div>
+                                <div class="variables-list">
+                                    Δ > 0: duas raízes reais distintas<br>
+                                    Δ = 0: duas raízes reais iguais<br>
+                                    Δ < 0: raízes complexas
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Análise Combinatória -->
+        <section class="section">
+            <h2 class="section-title">Análise Combinatória</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-7" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-7)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ARRANJO</div>
+                            <h3 class="formula-title">Arranjo Simples</h3>
+                            <div class="formula">Aₙ,ₚ = n! / (n-p)!</div>
+                            <p class="description">Número de arranjos de n elementos tomados p a p. Considera a ordem dos elementos. Usado quando a ordem importa.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    n = total de elementos<br>
+                                    p = elementos escolhidos<br>
+                                    ! = fatorial
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="blue-gradient-8" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#3b82f6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#blue-gradient-8)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">COMBINAÇÃO</div>
+                            <h3 class="formula-title">Combinação Simples</h3>
+                            <div class="formula">Cₙ,ₚ = n! / [p!(n-p)!]</div>
+                            <p class="description">Número de combinações de n elementos tomados p a p. NÃO considera a ordem dos elementos. Usado quando a ordem não importa.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    n = total de elementos<br>
+                                    p = elementos escolhidos<br>
+                                    ! = fatorial
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

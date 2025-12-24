@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Física - Fórmulas Completas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 2rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .breadcrumb a {
+            color: #10b981;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #10b981;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-wrapper {
+            position: relative;
+        }
+
+        .glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            filter: blur(40px);
+            opacity: 0.3;
+            background: #10b981;
+        }
+
+        .card {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            overflow: hidden;
+            min-height: 300px;
+            border: 2px solid #10b981;
+        }
+
+        .electric-border {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .electric-border rect {
+            animation: electric-flow 4s linear infinite;
+        }
+
+        .green-border { 
+            filter: drop-shadow(0 0 6px #10b981) drop-shadow(0 0 12px #059669); 
+        }
+
+        .lightning-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            font-size: 12px;
+            color: #10b981;
+            text-shadow: 0 0 10px #10b981;
+            animation: lightning-flash 3s ease-in-out infinite;
+        }
+
+        .lightning-bolt:nth-child(1) { top: 10%; left: 5%; }
+        .lightning-bolt:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
+        .lightning-bolt:nth-child(3) { bottom: 15%; left: 12%; animation-delay: 1s; }
+        .lightning-bolt:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; }
+
+        .card-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #10b981;
+        }
+
+        .formula-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .formula {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #d1fae5;
+            text-align: center;
+        }
+
+        .description {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .variables {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .variables-title {
+            color: #10b981;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .variables-list {
+            color: #d1d5db;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .units {
+            background: rgba(16, 185, 129, 0.05);
+            border-left: 3px solid #10b981;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .units-title {
+            color: #10b981;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .units-list {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        @keyframes electric-flow {
+            0% { stroke-dashoffset: 800; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes lightning-flash {
+            0%, 100% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+            10% { 
+                opacity: 1;
+                transform: scale(1) translateY(-3px);
+            }
+            20% { 
+                opacity: 0.5;
+                transform: scale(0.8) translateY(-2px);
+            }
+            30% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="breadcrumb">
+                <a href="../index.html">Início</a> > Física
+            </nav>
+            <h1 class="main-title">Física</h1>
+            <p class="subtitle">Fórmulas fundamentais de toda a física clássica e moderna</p>
+        </header>
+
+        <!-- Movimento Retilíneo Uniforme -->
+        <section class="section">
+            <h2 class="section-title">Movimento Retilíneo Uniforme (MRU)</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-1)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">VELOCIDADE MÉDIA</div>
+                            <h3 class="formula-title">Velocidade Média</h3>
+                            <div class="formula">v = Δs / Δt</div>
+                            <p class="description">Velocidade média é definida como a razão entre o deslocamento e o intervalo de tempo. No MRU, a velocidade é constante.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    v = velocidade (m/s)<br>
+                                    Δs = deslocamento (m)<br>
+                                    Δt = intervalo de tempo (s)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Unidades:</div>
+                                <div class="units-list">Velocidade: m/s, km/h | Deslocamento: m, km | Tempo: s, h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-2)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">FUNÇÃO HORÁRIA</div>
+                            <h3 class="formula-title">Posição em função do tempo</h3>
+                            <div class="formula">s = s₀ + v·t</div>
+                            <p class="description">Função horária do movimento retilíneo uniforme. A posição varia linearmente com o tempo quando a velocidade é constante.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    s = posição final (m)<br>
+                                    s₀ = posição inicial (m)<br>
+                                    v = velocidade constante (m/s)<br>
+                                    t = tempo (s)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Exemplo:</div>
+                                <div class="units-list">Se s₀ = 10m e v = 5m/s, em t = 2s: s = 10 + 5×2 = 20m</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Movimento Retilíneo Uniformemente Variado -->
+        <section class="section">
+            <h2 class="section-title">Movimento Retilíneo Uniformemente Variado (MRUV)</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-3)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ACELERAÇÃO</div>
+                            <h3 class="formula-title">Aceleração Média</h3>
+                            <div class="formula">a = Δv / Δt</div>
+                            <p class="description">Aceleração é a taxa de variação da velocidade. No MRUV, a aceleração é constante e diferente de zero.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    a = aceleração (m/s²)<br>
+                                    Δv = variação da velocidade (m/s)<br>
+                                    Δt = intervalo de tempo (s)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Interpretação:</div>
+                                <div class="units-list">Aceleração positiva: aumenta velocidade | Aceleração negativa: diminui velocidade</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-4)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">VELOCIDADE</div>
+                            <h3 class="formula-title">Velocidade em função do tempo</h3>
+                            <div class="formula">v = v₀ + a·t</div>
+                            <p class="description">Velocidade em função do tempo no MRUV. A velocidade varia linearmente com o tempo devido à aceleração constante.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    v = velocidade final (m/s)<br>
+                                    v₀ = velocidade inicial (m/s)<br>
+                                    a = aceleração constante (m/s²)<br>
+                                    t = tempo (s)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-5)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">POSIÇÃO</div>
+                            <h3 class="formula-title">Posição em função do tempo</h3>
+                            <div class="formula">s = s₀ + v₀t + at²/2</div>
+                            <p class="description">Função horária da posição no MRUV. A posição varia quadraticamente com o tempo devido à aceleração.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    s = posição final (m)<br>
+                                    s₀ = posição inicial (m)<br>
+                                    v₀ = velocidade inicial (m/s)<br>
+                                    a = aceleração (m/s²)<br>
+                                    t = tempo (s)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-6)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">TORRICELLI</div>
+                            <h3 class="formula-title">Equação de Torricelli</h3>
+                            <div class="formula">v² = v₀² + 2aΔs</div>
+                            <p class="description">Equação que relaciona velocidade e deslocamento sem envolver o tempo. Muito útil para resolver problemas onde o tempo não é conhecido.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    v = velocidade final (m/s)<br>
+                                    v₀ = velocidade inicial (m/s)<br>
+                                    a = aceleração (m/s²)<br>
+                                    Δs = deslocamento (m)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dinâmica - Leis de Newton -->
+        <section class="section">
+            <h2 class="section-title">Dinâmica - Leis de Newton</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-7" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-7)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">2ª LEI DE NEWTON</div>
+                            <h3 class="formula-title">Princípio Fundamental</h3>
+                            <div class="formula">F = m·a</div>
+                            <p class="description">A força resultante sobre um corpo é igual ao produto de sua massa pela aceleração. Esta é a lei fundamental da dinâmica.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    F = força resultante (N - newton)<br>
+                                    m = massa (kg)<br>
+                                    a = aceleração (m/s²)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Unidades:</div>
+                                <div class="units-list">Força: N (kg·m/s²) | Massa: kg | Aceleração: m/s²</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-8" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-8)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PESO</div>
+                            <h3 class="formula-title">Força Peso</h3>
+                            <div class="formula">P = m·g</div>
+                            <p class="description">Peso é a força gravitacional exercida pela Terra sobre um corpo. É uma força sempre направлена para o centro da Terra.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    P = peso (N)<br>
+                                    m = massa (kg)<br>
+                                    g = aceleração da gravidade (m/s²)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Valores típicos:</div>
+                                <div class="units-list">g = 9,8 m/s² (Terra) | g = 1,6 m/s² (Lua)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-9" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-9)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ATRITO</div>
+                            <h3 class="formula-title">Força de Atrito Estático</h3>
+                            <div class="formula">Fat ≤ μ·s·N</div>
+                            <p class="description">A força de atrito estático máximo é igual ao coeficiente de atrito estático vezes a força normal. A força real pode ser menor.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    Fat = força de atrito (N)<br>
+                                    μ·s = coeficiente de atrito estático<br>
+                                    N = força normal (N)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Coeficientes típicos:</div>
+                                <div class="units-list">Madeira-aco: μ·s ≈ 0,4 | Aço-aco: μ·s ≈ 0,6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-10" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-10)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">HOOKE</div>
+                            <h3 class="formula-title">Lei de Hooke</h3>
+                            <div class="formula">F = k·x</div>
+                            <p class="description">A força elástica exercida por uma mola é proporcional ao seu deslocamento da posição de equilíbrio. Válida apenas para deformações pequenas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    F = força elástica (N)<br>
+                                    k = constante elástica (N/m)<br>
+                                    x = deformação (m)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Interpretação:</div>
+                                <div class="units-list">Força restauradora: sempre oposta ao deslocamento</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Energia e Trabalho -->
+        <section class="section">
+            <h2 class="section-title">Trabalho e Energia</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-11" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-11)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">TRABALHO</div>
+                            <h3 class="formula-title">Trabalho de uma Força</h3>
+                            <div class="formula">W = F·d·cos θ</div>
+                            <p class="description">Trabalho realizado por uma força constante é igual ao produto da força pelo deslocamento pelo cosseno do ângulo entre eles.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    W = trabalho (J - joule)<br>
+                                    F = força (N)<br>
+                                    d = deslocamento (m)<br>
+                                    θ = ângulo entre F e d
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Casos especiais:</div>
+                                <div class="units-list">θ = 0°: W = F·d | θ = 90°: W = 0 | θ = 180°: W = -F·d</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-12" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-12)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ENERGIA CINÉTICA</div>
+                            <h3 class="formula-title">Energia Cinética</h3>
+                            <div class="formula">Ec = m·v²/2</div>
+                            <p class="description">Energia cinética é a energia associada ao movimento de um corpo. Depende apenas da massa e da velocidade.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    Ec = energia cinética (J)<br>
+                                    m = massa (kg)<br>
+                                    v = velocidade (m/s)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Teorema:</div>
+                                <div class="units-list">W = ΔEc (o trabalho resulta na variação da energia cinética)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Movimento Circular -->
+        <section class="section">
+            <h2 class="section-title">Movimento Circular</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-13" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-13)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">VELOCIDADE ANGULAR</div>
+                            <h3 class="formula-title">Velocidade Angular</h3>
+                            <div class="formula">ω = Δθ / Δt = 2π/T</div>
+                            <p class="description">Velocidade angular é a taxa de variação do ângulo com o tempo. Pode ser calculada pela variação angular dividida pelo tempo ou pelo período.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    ω = velocidade angular (rad/s)<br>
+                                    Δθ = variação angular (rad)<br>
+                                    Δt = intervalo de tempo (s)<br>
+                                    T = período (s)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Relação:</div>
+                                <div class="units-list">ω = 2πf (f = frequência)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-14" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-14)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">VELOCIDADE LINEAR</div>
+                            <h3 class="formula-title">Velocidade Tangencial</h3>
+                            <div class="formula">v = ωr</div>
+                            <p class="description">A velocidade linear (tangencial) é igual à velocidade angular multiplicada pelo raio da trajetória circular.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    v = velocidade tangencial (m/s)<br>
+                                    ω = velocidade angular (rad/s)<br>
+                                    r = raio da trajetória (m)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-15" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-15)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ACELERAÇÃO CENTRÍPETA</div>
+                            <h3 class="formula-title">Aceleração Centrípeta</h3>
+                            <div class="formula">acp = v²/r = ω²r</div>
+                            <p class="description">Aceleração centrípeta é a aceleração dirigida para o centro da trajetória circular. É responsável pela mudança contínua da direção da velocidade.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    acp = aceleração centrípeta (m/s²)<br>
+                                    v = velocidade tangencial (m/s)<br>
+                                    r = raio (m)<br>
+                                    ω = velocidade angular (rad/s)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gravitação -->
+        <section class="section">
+            <h2 class="section-title">Gravitação Universal</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-16" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-16)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">LEI DA GRAVITAÇÃO</div>
+                            <h3 class="formula-title">Lei de Newton para Gravitação</h3>
+                            <div class="formula">F = G(m₁m₂)/r²</div>
+                            <p class="description">A força de atração gravitacional entre dois corpos é proporcional ao produto de suas massas e inversamente proporcional ao quadrado da distância entre eles.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    F = força gravitacional (N)<br>
+                                    G = 6,67×10⁻¹¹ N·m²/kg²<br>
+                                    m₁, m₂ = massas dos corpos (kg)<br>
+                                    r = distância entre os centros (m)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Importante:</div>
+                                <div class="units-list">G é a menor constante conhecida na natureza</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-17" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-17)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">VELOCIDADE ORBITAL</div>
+                            <h3 class="formula-title">Velocidade Orbital</h3>
+                            <div class="formula">v = √(GM/r)</div>
+                            <p class="description">Velocidade necessária para manter um corpo em órbita circular estável ao redor de outro corpo massivo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    v = velocidade orbital (m/s)<br>
+                                    G = constante gravitacional<br>
+                                    M = massa do corpo central (kg)<br>
+                                    r = raio da órbita (m)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Exemplo:</div>
+                                <div class="units-list">Satélite terrestre: M = 6×10²⁴ kg</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-18" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-18)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">3ª LEI DE KEPLER</div>
+                            <h3 class="formula-title">Lei dos Períodos</h3>
+                            <div class="formula">T²/R³ = constante</div>
+                            <p class="description">A razão entre o quadrado do período orbital e o cubo do raio médio da órbita é constante para todos os planetas do mesmo sistema.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    T = período orbital (s)<br>
+                                    R = raio médio da órbita (m)<br>
+                                    constante = 4π²/GM
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hidrostática -->
+        <section class="section">
+            <h2 class="section-title">Hidrostática</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-19" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-19)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PRESSÃO HIDROSTÁTICA</div>
+                            <h3 class="formula-title">Lei de Stevin</h3>
+                            <div class="formula">P = ρgh</div>
+                            <p class="description">A pressão hidrostática em um ponto de um fluido é proporcional à densidade do fluido, à aceleração da gravidade e à profundidade.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    P = pressão (Pa)<br>
+                                    ρ = densidade do fluido (kg/m³)<br>
+                                    g = aceleração da gravidade (m/s²)<br>
+                                    h = profundidade (m)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Unidades:</div>
+                                <div class="units-list">P = Pa (pascal) = N/m²</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-20" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-20)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PRINCÍPIO DE PASCAL</div>
+                            <h3 class="formula-title">Princípio da Prensa Hidráulica</h3>
+                            <div class="formula">F₁/A₁ = F₂/A₂</div>
+                            <p class="description">A pressão aplicada em um ponto de um fluido transmite-se integralmente a todos os pontos do fluido e às paredes do recipiente.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    F₁, F₂ = forças aplicadas (N)<br>
+                                    A₁, A₂ = áreas dos pistões (m²)<br>
+                                    P = pressão (Pa)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Amplificação:</div>
+                                <div class="units-list">F₂ = F₁ × (A₂/A₁)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-21" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-21)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">EMPUXO</div>
+                            <h3 class="formula-title">Princípio de Arquimedes</h3>
+                            <div class="formula">E = ρ_fluido · V_deslocado · g</div>
+                            <p class="description">Todo corpo mergulhado em um fluido recebe uma força vertical para cima igual ao peso do fluido deslocado pelo corpo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    E = empuxo (N)<br>
+                                    ρ_fluido = densidade do fluido (kg/m³)<br>
+                                    V_deslocado = volume deslocado (m³)<br>
+                                    g = aceleração da gravidade (m/s²)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Aplicações:</div>
+                                <div class="units-list">Navegação, balões, submarines</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Termodinâmica -->
+        <section class="section">
+            <h2 class="section-title">Termodinâmica</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-22" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-22)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">#</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">1ª LEI DA TERMODINÂMICA</div>
+                            <h3 class="formula-title">Conservação da Energia</h3>
+                            <div class="formula">ΔU = Q - W</div>
+                            <p class="description">A variação da energia interna de um sistema é igual ao calor adicionado menos o trabalho realizado pelo sistema.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    ΔU = variação energia interna (J)<br>
+                                    Q = calor adicionado ao sistema (J)<br>
+                                    W = trabalho realizado pelo sistema (J)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Convenção:</div>
+                                <div class="units-list">Q > 0: sistema recebe calor | W > 0: sistema realiza trabalho</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-23" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-23)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">GASES IDEAIS</div>
+                            <h3 class="formula-title">Equação de Clapeyron</h3>
+                            <div class="formula">PV = nRT</div>
+                            <p class="description">A equação de estado dos gases ideais relaciona pressão, volume, temperatura e quantidade de matéria.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    P = pressão (Pa ou atm)<br>
+                                    V = volume (m³ ou L)<br>
+                                    n = número de mols (mol)<br>
+                                    R = 8,31 J/(mol·K) ou 0,082 atm·L/(mol·K)<br>
+                                    T = temperatura (K)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-24" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-24)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CALOR SENSÍVEL</div>
+                            <h3 class="formula-title">Capacidade Calorífica</h3>
+                            <div class="formula">Q = mcΔT</div>
+                            <p class="description">A quantidade de calor necessária para variar a temperatura de um corpo é proporcional à sua massa, calor específico e variação de temperatura.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    Q = calor (J ou cal)<br>
+                                    m = massa (kg ou g)<br>
+                                    c = calor específico (J/(kg·K) ou cal/(g·°C))<br>
+                                    ΔT = variação de temperatura (K ou °C)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ondas -->
+        <section class="section">
+            <h2 class="section-title">Ondas e Acústica</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-25" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-25)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">EQUAÇÃO FUNDAMENTAL</div>
+                            <h3 class="formula-title">Relação Fundamental das Ondas</h3>
+                            <div class="formula">v = λf</div>
+                            <p class="description">A velocidade de uma onda é igual ao produto do comprimento de onda pela frequência. Esta é a equação fundamental das ondas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    v = velocidade da onda (m/s)<br>
+                                    λ = comprimento de onda (m)<br>
+                                    f = frequência (Hz)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Típicos:</div>
+                                <div class="units-list">Som: ~340 m/s | Luz: ~3×10⁸ m/s</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-26" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-26)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">EFEITO DOPPLER</div>
+                            <h3 class="formula-title">Mudança de Frequência</h3>
+                            <div class="formula">f' = f·(v ± v_obs)/(v ∓ v_fonte)</div>
+                            <p class="description">A frequência percebida de uma onda muda quando há movimento relativo entre fonte e observador. Usado em radar e ultrassom.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    f' = frequência observada (Hz)<br>
+                                    f = frequência da fonte (Hz)<br>
+                                    v = velocidade da onda (m/s)<br>
+                                    v_obs = velocidade do observador (m/s)<br>
+                                    v_fonte = velocidade da fonte (m/s)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Sinal:</div>
+                                <div class="units-list">+ no numerador: observador aproxima | - no denominador: fonte aproxima</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eletrostática -->
+        <section class="section">
+            <h2 class="section-title">Eletrostática</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-27" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-27)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">LEI DE COULOMB</div>
+                            <h3 class="formula-title">Força Elétrica</h3>
+                            <div class="formula">F = k·q₁q₂/r²</div>
+                            <p class="description">A força de interação elétrica entre duas cargas puntuais é proporcional ao produto das cargas e inversamente proporcional ao quadrado da distância.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    F = força elétrica (N)<br>
+                                    k = 9×10⁹ N·m²/C²<br>
+                                    q₁, q₂ = cargas (C)<br>
+                                    r = distância entre as cargas (m)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Carga elementar:</div>
+                                <div class="units-list">e = 1,6×10⁻¹⁹ C</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-28" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-28)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">POTENCIAL ELÉTRICO</div>
+                            <h3 class="formula-title">Potencial Elétrico</h3>
+                            <div class="formula">V = k·Q/r</div>
+                            <p class="description">O potencial elétrico em um ponto devido a uma carga puntuai é proporcional à carga e inversamente proporcional à distância.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    V = potencial elétrico (V = volt)<br>
+                                    k = constante eletrostática<br>
+                                    Q = carga criadora do potencial (C)<br>
+                                    r = distância do ponto à carga (m)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eletrodinâmica -->
+        <section class="section">
+            <h2 class="section-title">Eletrodinâmica</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-29" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-29)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">LEI DE OHM</div>
+                            <h3 class="formula-title">Lei Fundamental dos Circuitos</h3>
+                            <div class="formula">V = R·i</div>
+                            <p class="description">A diferença de potencial em um resistor é igual ao produto da resistência pela corrente elétrica que o atravessa.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    V = tensão/diferença de potencial (V)<br>
+                                    R = resistência elétrica (Ω - ohm)<br>
+                                    i = corrente elétrica (A - ampère)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Ohm:</div>
+                                <div class="units-list">1Ω = 1V/A</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-30" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-30)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">POTÊNCIA ELÉTRICA</div>
+                            <h3 class="formula-title">Potência Dissipada</h3>
+                            <div class="formula">P = V·i = Ri² = V²/R</div>
+                            <p class="description">A potência elétrica dissipada em um resistor pode ser calculada de três formas equivalentes, dependendo das variáveis conhecidas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    P = potência (W - watt)<br>
+                                    V = tensão (V)<br>
+                                    i = corrente (A)<br>
+                                    R = resistência (Ω)
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Watt:</div>
+                                <div class="units-list">1W = 1J/s</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-31" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-31)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">RESISTORES EM SÉRIE</div>
+                            <h3 class="formula-title">Associação em Série</h3>
+                            <div class="formula">Req = R₁ + R₂ + R₃ + ...</div>
+                            <p class="description">A resistência equivalente de resistores em série é igual à soma das resistências individuais. A corrente é a mesma em todos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    Req = resistência equivalente (Ω)<br>
+                                    R₁, R₂, R₃ = resistências individuais (Ω)<br>
+                                    i = corrente (A) - mesma em todos<br>
+                                    V = tensão (V) - dividida entre os resistores
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-32" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-32)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">RESISTORES EM PARALELO</div>
+                            <h3 class="formula-title">Associação em Paralelo</h3>
+                            <div class="formula">1/Req = 1/R₁ + 1/R₂ + 1/R₃ + ...</div>
+                            <p class="description">O inverso da resistência equivalente é igual à soma dos inversos das resistências individuais. A tensão é a mesma em todos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    Req = resistência equivalente (Ω)<br>
+                                    R₁, R₂, R₃ = resistências individuais (Ω)<br>
+                                    V = tensão (V) - mesma em todos<br>
+                                    i = corrente (A) - dividida entre os resistores
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Física Moderna -->
+        <section class="section">
+            <h2 class="section-title">Física Moderna</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-33" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-33)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ENERGIA DO FÓTON</div>
+                            <h3 class="formula-title">Energia do Fóton</h3>
+                            <div class="formula">E = hf = hc/λ</div>
+                            <p class="description">A energia de um fóton é proporcional à sua frequência. Esta é a base da teoria quântica da luz de Einstein.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    E = energia do fóton (J)<br>
+                                    h = 6,63×10⁻³⁴ J·s (constante de Planck)<br>
+                                    f = frequência (Hz)<br>
+                                    c = 3×10⁸ m/s (velocidade da luz)<br>
+                                    λ = comprimento de onda (m)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="green-gradient-34" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#059669" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#10b981" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#green-gradient-34)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">E = mc²</div>
+                            <h3 class="formula-title">Relação Massa-Energia</h3>
+                            <div class="formula">E = mc²</div>
+                            <p class="description">A famosa equação de Einstein que relaciona massa e energia. Pequeñas quantidades de massa podem ser convertidas em grandes quantidades de energia.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    E = energia (J)<br>
+                                    m = massa (kg)<br>
+                                    c = 3×10⁸ m/s (velocidade da luz)<br>
+                                    c² = 9×10¹⁶ m²/s²
+                                </div>
+                            </div>
+                            <div class="units">
+                                <div class="units-title">Implicação:</div>
+                                <div class="units-list">1g de matéria = 9×10¹³ J (equivalente a 20 megatons de TNT)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

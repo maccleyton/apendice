@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engenharia - Fórmulas Técnicas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 2rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .breadcrumb a {
+            color: #ef4444;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ef4444;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-wrapper {
+            position: relative;
+        }
+
+        .glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            filter: blur(40px);
+            opacity: 0.3;
+            background: #ef4444;
+        }
+
+        .card {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            overflow: hidden;
+            min-height: 300px;
+            border: 2px solid #ef4444;
+        }
+
+        .electric-border {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .electric-border rect {
+            animation: electric-flow 4s linear infinite;
+        }
+
+        .red-border { 
+            filter: drop-shadow(0 0 6px #ef4444) drop-shadow(0 0 12px #dc2626); 
+        }
+
+        .lightning-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            font-size: 12px;
+            color: #ef4444;
+            text-shadow: 0 0 10px #ef4444;
+            animation: lightning-flash 3s ease-in-out infinite;
+        }
+
+        .lightning-bolt:nth-child(1) { top: 10%; left: 5%; }
+        .lightning-bolt:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
+        .lightning-bolt:nth-child(3) { bottom: 15%; left: 12%; animation-delay: 1s; }
+        .lightning-bolt:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; }
+
+        .card-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #ef4444;
+        }
+
+        .formula-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .formula {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #fecaca;
+            text-align: center;
+        }
+
+        .description {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .variables {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .variables-title {
+            color: #ef4444;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .variables-list {
+            color: #d1d5db;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .example {
+            background: rgba(239, 68, 68, 0.05);
+            border-left: 3px solid #ef4444;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-title {
+            color: #ef4444;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-content {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        @keyframes electric-flow {
+            0% { stroke-dashoffset: 800; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes lightning-flash {
+            0%, 100% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+            10% { 
+                opacity: 1;
+                transform: scale(1) translateY(-3px);
+            }
+            20% { 
+                opacity: 0.5;
+                transform: scale(0.8) translateY(-2px);
+            }
+            30% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="breadcrumb">
+                <a href="../index.html">Início</a> > Engenharia
+            </nav>
+            <h1 class="main-title">Engenharia</h1>
+            <p class="subtitle">Fórmulas fundamentais para mecânica, estrutural, elétrica e outras áreas da engenharia</p>
+        </header>
+
+        <!-- Resistência dos Materiais -->
+        <section class="section">
+            <h2 class="section-title">Resistência dos Materiais</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-1)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">TENSÃO</div>
+                            <h3 class="formula-title">Tensão Normal</h3>
+                            <div class="formula">σ = F/A</div>
+                            <p class="description">Tensão normal é a força aplicada perpendicularmente à seção transversal dividida pela área da seção.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    σ = tensão normal (Pa = N/m²)<br>
+                                    F = força aplicada (N)<br>
+                                    A = área da seção transversal (m²)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Unidades:</div>
+                                <div class="example-content">Pa (pascal), MPa (megapascal), psi</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-2)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DEFORMAÇÃO</div>
+                            <h3 class="formula-title">Deformação Específica</h3>
+                            <div class="formula">ε = ΔL/L₀</div>
+                            <p class="description">Deformação específica é a variação do comprimento dividida pelo comprimento inicial. Adimensional.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    ε = deformação específica (adimensional)<br>
+                                    ΔL = variação do comprimento (m)<br>
+                                    L₀ = comprimento inicial (m)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Interpretação:</div>
+                                <div class="example-content">ε > 0: alongamento | ε < 0: encurtamento</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-3)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">HOOKE</div>
+                            <h3 class="formula-title">Lei de Hooke</h3>
+                            <div class="formula">σ = E·ε</div>
+                            <p class="description">Lei fundamental da elasticidade. A tensão é proporcional à deformação através do módulo de Young.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    σ = tensão (Pa)<br>
+                                    E = módulo de Young (Pa)<br>
+                                    ε = deformação específica (adimensional)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Valores típicos:</div>
+                                <div class="example-content">Aço: E ≈ 200 GPa | Concreto: E ≈ 30 GPa</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-4)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">MOMENTO FLETOR</div>
+                            <h3 class="formula-title">Momento Fletor em Vigas</h3>
+                            <div class="formula">M = F·L</div>
+                            <p class="description">Momento fletor é a tendência de rotação causada por uma força. Fundamental no dimensionamento de vigas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    M = momento fletor (N·m)<br>
+                                    F = força aplicada (N)<br>
+                                    L = distância da força ao apoio (m)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Aplicação:</div>
+                                <div class="example-content">Cálculo de tensões em vigas e estruturas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mecânica dos Fluidos -->
+        <section class="section">
+            <h2 class="section-title">Mecânica dos Fluidos</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-5)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CONTINUIDADE</div>
+                            <h3 class="formula-title">Equação da Continuidade</h3>
+                            <div class="formula">A₁v₁ = A₂v₂</div>
+                            <p class="description">Princípio de conservação de massa para fluidos incompressíveis. O produto da área pela velocidade é constante.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    A₁, A₂ = áreas das seções (m²)<br>
+                                    v₁, v₂ = velocidades do fluido (m/s)<br>
+                                    ρ = densidade (kg/m³) - constante
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Aplicação:</div>
+                                <div class="example-content">Tubos com diâmetros diferentes, vazão constante</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-6)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">BERNOULLI</div>
+                            <h3 class="formula-title">Equação de Bernoulli</h3>
+                            <div class="formula">P + ρgh + ρv²/2 = constante</div>
+                            <p class="description">Conservação de energia em fluidos ideais. Soma da pressão, energia potencial e cinética é constante.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    P = pressão (Pa)<br>
+                                    ρ = densidade (kg/m³)<br>
+                                    g = gravidade (m/s²)<br>
+                                    h = altura (m)<br>
+                                    v = velocidade (m/s)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Aplicação:</div>
+                                <div class="example-content">Aviação, hydraulics, medidores de fluxo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-7" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-7)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">REYNOLDS</div>
+                            <h3 class="formula-title">Número de Reynolds</h3>
+                            <div class="formula">Re = ρvL/μ</div>
+                            <p class="description">Número adimensional que caracteriza o regime de escoamento. Determina se o fluxo é laminar ou turbulento.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    Re = número de Reynolds (adimensional)<br>
+                                    ρ = densidade (kg/m³)<br>
+                                    v = velocidade (m/s)<br>
+                                    L = dimensão característica (m)<br>
+                                    μ = viscosidade dinâmica (Pa·s)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Regimes:</div>
+                                <div class="example-content">Re < 2300: laminar | Re > 4000: turbulento</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transferência de Calor -->
+        <section class="section">
+            <h2 class="section-title">Transferência de Calor</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-8" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-8)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">FOURIER</div>
+                            <h3 class="formula-title">Lei de Fourier</h3>
+                            <div class="formula">q = -k·A·dT/dx</div>
+                            <p class="description">Lei fundamental da condução térmica. O fluxo de calor é proporcional ao gradiente de temperatura.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    q = fluxo de calor (W)<br>
+                                    k = condutividade térmica (W/m·K)<br>
+                                    A = área da seção (m²)<br>
+                                    dT/dx = gradiente de temperatura (K/m)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Aplicação:</div>
+                                <div class="example-content">Cálculo de perdas térmicas em paredes, isolamento</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-9" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-9)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CONVECÇÃO</div>
+                            <h3 class="formula-title">Lei do Resfriamento de Newton</h3>
+                            <div class="formula">q = h·A·(Tₛ - T∞)</div>
+                            <p class="description">Transferência de calor por convecção entre uma superfície e um fluido. A taxa é proporcional à diferença de temperaturas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    q = fluxo de calor (W)<br>
+                                    h = coeficiente de convecção (W/m²·K)<br>
+                                    A = área da superfície (m²)<br>
+                                    Tₛ = temperatura da superfície (K)<br>
+                                    T∞ = temperatura do fluido (K)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Valores típicos:</div>
+                                <div class="example-content">Ar natural: h ≈ 10 W/m²·K | Água: h ≈ 100 W/m²·K</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Circuitos Elétricos -->
+        <section class="section">
+            <h2 class="section-title">Circuitos Elétricos</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-10" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-10)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">POTÊNCIA</div>
+                            <h3 class="formula-title">Potência Elétrica</h3>
+                            <div class="formula">P = V·I = I²·R = V²/R</div>
+                            <p class="description">Potência dissipada em um circuito elétrico. Pode ser calculada de três formas equivalentes dependendo das variáveis conhecidas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    P = potência (W)<br>
+                                    V = tensão (V)<br>
+                                    I = corrente (A)<br>
+                                    R = resistência (Ω)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Aplicação:</div>
+                                <div class="example-content">Dimensionamento de circuitos, consumo energético</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="red-gradient-11" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#dc2626" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#ef4444" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#dc2626" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#red-gradient-11)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ENERGIA</div>
+                            <h3 class="formula-title">Energia Elétrica</h3>
+                            <div class="formula">E = P·t = V·I·t</div>
+                            <p class="description">Energia elétrica consumida por um dispositivo ao longo do tempo. Medida em watt-hora (Wh) ou quilowatt-hora (kWh).</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    E = energia (J, Wh, kWh)<br>
+                                    P = potência (W)<br>
+                                    t = tempo (s, h)<br>
+                                    V = tensão (V)<br>
+                                    I = corrente (A)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Conversões:</div>
+                                <div class="example-content">1 kWh = 3,6×10⁶ J | Conta de luz: kWh × tarifa</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

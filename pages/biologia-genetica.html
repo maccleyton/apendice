@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biologia - Fórmulas Completas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 2rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .breadcrumb a {
+            color: #8b5cf6;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #8b5cf6;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-wrapper {
+            position: relative;
+        }
+
+        .glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            filter: blur(40px);
+            opacity: 0.3;
+            background: #8b5cf6;
+        }
+
+        .card {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            overflow: hidden;
+            min-height: 300px;
+            border: 2px solid #8b5cf6;
+        }
+
+        .electric-border {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .electric-border rect {
+            animation: electric-flow 4s linear infinite;
+        }
+
+        .purple-border { 
+            filter: drop-shadow(0 0 6px #8b5cf6) drop-shadow(0 0 12px #7c3aed); 
+        }
+
+        .lightning-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            font-size: 12px;
+            color: #8b5cf6;
+            text-shadow: 0 0 10px #8b5cf6;
+            animation: lightning-flash 3s ease-in-out infinite;
+        }
+
+        .lightning-bolt:nth-child(1) { top: 10%; left: 5%; }
+        .lightning-bolt:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
+        .lightning-bolt:nth-child(3) { bottom: 15%; left: 12%; animation-delay: 1s; }
+        .lightning-bolt:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; }
+
+        .card-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #8b5cf6;
+        }
+
+        .formula-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .formula {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid #8b5cf6;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #ddd6fe;
+            text-align: center;
+        }
+
+        .description {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .variables {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .variables-title {
+            color: #8b5cf6;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .variables-list {
+            color: #d1d5db;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .example {
+            background: rgba(139, 92, 246, 0.05);
+            border-left: 3px solid #8b5cf6;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-title {
+            color: #8b5cf6;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-content {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        .dna-structure {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+
+        .dna-pair {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid #8b5cf6;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        .pair-name {
+            color: #8b5cf6;
+            font-weight: bold;
+        }
+
+        @keyframes electric-flow {
+            0% { stroke-dashoffset: 800; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes lightning-flash {
+            0%, 100% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+            10% { 
+                opacity: 1;
+                transform: scale(1) translateY(-3px);
+            }
+            20% { 
+                opacity: 0.5;
+                transform: scale(0.8) translateY(-2px);
+            }
+            30% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .dna-structure {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="breadcrumb">
+                <a href="../index.html">Início</a> > Biologia
+            </nav>
+            <h1 class="main-title">Biologia</h1>
+            <p class="subtitle">Genética, bioquímica, ecologia e fisiologia</p>
+        </header>
+
+        <!-- Leis de Mendel -->
+        <section class="section">
+            <h2 class="section-title">Leis de Mendel</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-1)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">1ª LEI DE MENDEL</div>
+                            <h3 class="formula-title">Princípio da Segregação</h3>
+                            <div class="formula">3:1 (fenótipo) | 1:2:1 (genótipo)</div>
+                            <p class="description">Na segregação de um par de alelos, os fatores mendelianos se separam durante a formação dos gametas e se reunião na fertilização.</p>
+                            <div class="variables">
+                                <div class="variables-title">Proporções típicas:</div>
+                                <div class="variables-list">
+                                    3 dominantes : 1 recessivo (fenótipo)<br>
+                                    1 homozigoto dominante : 2 heterozigotos : 1 homozigoto recessivo (genótipo)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">Cruza Aa × Aa → AA, Aa, Aa, aa (fenótipo 3:1, genótipo 1:2:1)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-2)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">2ª LEI DE MENDEL</div>
+                            <h3 class="formula-title">Princípio da Distribuição Independente</h3>
+                            <div class="formula">9:3:3:1</div>
+                            <p class="description">Genes localizados em cromossomos diferentes segregam independentemente durante a formação dos gametas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Proporções do di-hibridismo:</div>
+                                <div class="variables-list">
+                                    9 = duplo dominante<br>
+                                    3 = dominante/recessivo A<br>
+                                    3 = recessivo/dominante B<br>
+                                    1 = duplo recessivo
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">Cruza AaBb × AaBb → 9 A_B_, 3 A_bb, 3 aaB_, 1 aabb</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equilíbrio de Hardy-Weinberg -->
+        <section class="section">
+            <h2 class="section-title">Equilíbrio de Hardy-Weinberg</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-3)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ALELOS</div>
+                            <h3 class="formula-title">Equilíbrio Alélico</h3>
+                            <div class="formula">p + q = 1</div>
+                            <p class="description">Em uma população em equilíbrio, a soma das frequências alélicas é igual a 1. Base para calcular frequências genotípicas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    p = frequência do alelo dominante<br>
+                                    q = frequência do alelo recessivo<br>
+                                    p, q ≥ 0 e p + q = 1
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">Se p = 0,8, então q = 1 - 0,8 = 0,2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-4)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">GENÓTIPOS</div>
+                            <h3 class="formula-title">Equilíbrio Genotípico</h3>
+                            <div class="formula">p² + 2pq + q² = 1</div>
+                            <p class="description">Distribuição genotípica em equilíbrio Hardy-Weinberg. Permite prever frequências dos genótipos a partir das frequências alélicas.</p>
+                            <div class="variables">
+                                <div class="variables-title">Componentes:</div>
+                                <div class="variables-list">
+                                    p² = frequência do homozigoto dominante<br>
+                                    2pq = frequência do heterozigoto<br>
+                                    q² = frequência do homozigoto recessivo
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo (p=0,8, q=0,2):</div>
+                                <div class="example-content">p²=0,64, 2pq=0,32, q²=0,04 (total = 1,0)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estrutura do DNA -->
+        <section class="section">
+            <h2 class="section-title">Estrutura e Replicação do DNA</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-5)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DUPLA HÉLICE</div>
+                            <h3 class="formula-title">Complementaridade das Bases</h3>
+                            <div class="formula">A↔T (2 H) | C↔G (3 H)</div>
+                            <p class="description">Pareamento complementar das bases nitrogenadas no DNA. Adenina pareia com Timina (2 pontes de hidrogênio), Citosina com Guanina (3 pontes).</p>
+                            <div class="variables">
+                                <div class="variables-title">Estrutura:</div>
+                                <div class="variables-list">
+                                    Fita antiparalela<br>
+                                    Açúcar: desoxirribose<br>
+                                    Fosfato + base nitrogenada<br>
+                                    Dupla hélice dextrógira
+                                </div>
+                            </div>
+                            <div class="dna-structure">
+                                <div class="dna-pair">
+                                    <div class="pair-name">Adenina (A)</div>
+                                    ↔ Timina (T)
+                                </div>
+                                <div class="dna-pair">
+                                    <div class="pair-name">Citosina (C)</div>
+                                    ↔ Guanina (G)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-6)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CÓDIGO GENÉTICO</div>
+                            <h3 class="formula-title">Dogma Central da Biologia</h3>
+                            <div class="formula">DNA → RNA → Proteína</div>
+                            <p class="description">Fluxo da informação genética: DNA é transcrito em RNA, que é traduzido em proteínas. Cada gene contém informações para uma proteína.</p>
+                            <div class="variables">
+                                <div class="variables-title">Etapas:</div>
+                                <div class="variables-list">
+                                    <strong>Transcrição:</strong> DNA → RNA mensageiro<br>
+                                    <strong>Processamento:</strong> intron/exon, splicing<br>
+                                    <strong>Tradução:</strong> RNA → proteína<br>
+                                    <strong>Código:</strong> 3 nucleotídeos = 1 códon = 1 aminoácido
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Diferenças RNA/DNA:</div>
+                                <div class="example-content">RNA: uracila (U) substitui timina (T), açúcar ribose</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Genética de Populações -->
+        <section class="section">
+            <h2 class="section-title">Genética de Populações</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-7" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-7)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">FREQUÊNCIA ALÉLICA</div>
+                            <h3 class="formula-title">Cálculo de Frequências</h3>
+                            <div class="formula">p = (2×AA + Aa) / (2×N)</div>
+                            <p class="description">Frequência de um alelo em uma população. Conta-se o número de alelos de cada tipo considerando que indivíduos homozigotos têm 2 alelos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    p = frequência do alelo A<br>
+                                    AA = número de homozigotos dominantes<br>
+                                    Aa = número de heterozigotos<br>
+                                    N = total de indivíduos
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">50 AA, 40 Aa, 10 aa (total 100): p = (2×50 + 40)/(2×100) = 0,7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-8" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-8)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">RECOMBINAÇÃO</div>
+                            <h3 class="formula-title">Taxa de Recombinação</h3>
+                            <div class="formula">VR = (n_recombinantes / n_total) × 100%</div>
+                            <p class="description">Percentual de gametas recombinantes em relação ao total. Indica a distância genética entre dois loci no cromossomo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Interpretação:</div>
+                                <div class="variables-list">
+                                    VR = 0% → genes muito próximos (ligados)<br>
+                                    VR = 50% → genes independentes<br>
+                                    1% VR = 1 centimorgan (cM)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">1000 gametas, 45 recombinantes → VR = 4,5%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bioenergética -->
+        <section class="section">
+            <h2 class="section-title">Bioenergética</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-9" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-9)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">RESPIRAÇÃO CELULAR</div>
+                            <h3 class="formula-title">Equação Global da Respiração</h3>
+                            <div class="formula">C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + 38 ATP</div>
+                            <p class="description">Oxidação completa da glicose na respiração celular aeróbica. Libera energia armazenada na forma de ATP.</p>
+                            <div class="variables">
+                                <div class="variables-title">Processos:</div>
+                                <div class="variables-list">
+                                    <strong>Glicólise:</strong> citoplasma, 2 ATP<br>
+                                    <strong>Ciclo de Krebs:</strong> mitocôndria, 2 ATP<br>
+                                    <strong>Cadeia respiratória:</strong> 34 ATP
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Eficiência:</div>
+                                <div class="example-content">38 ATP / 686 kcal ≈ 40% eficiência (resto como calor)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-10" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-10)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">FOTOSSÍNTESE</div>
+                            <h3 class="formula-title">Equação da Fotossíntese</h3>
+                            <div class="formula">6CO₂ + 6H₂O + luz → C₆H₁₂O₆ + 6O₂</div>
+                            <p class="description">Síntese de glicose através da energia luminosa. Processo fundamental que sustenta a vida na Terra.</p>
+                            <div class="variables">
+                                <div class="variables-title">Etapas:</div>
+                                <div class="variables-list">
+                                    <strong>Fase clara:</strong> fotossistemas, ATP, NADPH<br>
+                                    <strong>Fase escura:</strong> ciclo de Calvin, fixação CO₂<br>
+                                    <strong>Localização:</strong> cloroplastos
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Produtos:</div>
+                                <div class="example-content">Glicose (energia), oxigênio (subproduto), água</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ecologia -->
+        <section class="section">
+            <h2 class="section-title">Ecologia e Populações</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-11" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-11)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CRESCIMENTO POPULACIONAL</div>
+                            <h3 class="formula-title">Crescimento Exponencial</h3>
+                            <div class="formula">dN/dt = rN</div>
+                            <p class="description">O crescimento exponencial de uma população é proporcional ao tamanho atual da população e à taxa de crescimento intrínseca.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    N = tamanho da população<br>
+                                    t = tempo<br>
+                                    r = taxa de crescimento intrínseca<br>
+                                    dN/dt = taxa de variação da população
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Solução:</div>
+                                <div class="example-content">N(t) = N₀·e^(rt)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-12" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-12)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CRESCIMENTO LOGÍSTICO</div>
+                            <h3 class="formula-title">Modelo Logístico</h3>
+                            <div class="formula">dN/dt = rN(K-N)/K</div>
+                            <p class="description">O crescimento logístico considera a capacidade de suporte do ambiente, limitando o crescimento exponencial quando N se aproxima de K.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    K = capacidade de suporte<br>
+                                    r = taxa de crescimento intrínseca<br>
+                                    N = tamanho atual da população<br>
+                                    (K-N)/K = fator de limitação
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Comportamento:</div>
+                                <div class="example-content">N << K: crescimento exponencial | N ≈ K: crescimento lento</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-13" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-13)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DENSIDADE POPULACIONAL</div>
+                            <h3 class="formula-title">Densidade Populacional</h3>
+                            <div class="formula">D = N/A</div>
+                            <p class="description">A densidade populacional é o número de indivíduos por unidade de área. Varia entre espécies e ambientes.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    D = densidade populacional (indivíduos/área)<br>
+                                    N = número de indivíduos<br>
+                                    A = área ocupada
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Unidades:</div>
+                                <div class="example-content">indivíduos/m², indivíduos/km², indivíduos/hectare</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-14" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-14)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">EFICIÊNCIA ENERGÉTICA</div>
+                            <h3 class="formula-title">Eficiência da Cadeia Alimentar</h3>
+                            <div class="formula">E = (energia_nível_n / energia_nível_n-1) × 100%</div>
+                            <p class="description">A eficiência energética entre níveis tróficos representa a porcentagem de energia transferida de um nível para o próximo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    E = eficiência energética (% ou adimensional)<br>
+                                    energia_nível_n = energia no nível n<br>
+                                    energia_nível_n-1 = energia no nível anterior
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Regra dos 10%:</div>
+                                <div class="example-content">Geralmente apenas 10% da energia é transferida</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fisiologia -->
+        <section class="section">
+            <h2 class="section-title">Fisiologia Humana</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-15" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-15)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DÉBITO CARDÍACO</div>
+                            <h3 class="formula-title">Débito Cardíaco</h3>
+                            <div class="formula">DC = FC × VS</div>
+                            <p class="description">O débito cardíaco é o volume de sangue bombeado pelo coração por unidade de tempo. Indicador importante da função cardiovascular.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    DC = débito cardíaco (L/min)<br>
+                                    FC = frequência cardíaca (bpm)<br>
+                                    VS = volume sistólico (mL/batimento)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Valores típicos:</div>
+                                <div class="example-content">FC: 60-100 bpm | VS: 70-100 mL</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-16" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-16)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PRESSÃO ARTERIAL</div>
+                            <h3 class="formula-title">Pressão Arterial Média</h3>
+                            <div class="formula">PAM = PAD + (PAS - PAD)/3</div>
+                            <p class="description">A pressão arterial média considera que a diastólica tem maior peso que a sistólica no ciclo cardíaco.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    PAM = pressão arterial média (mmHg)<br>
+                                    PAD = pressão arterial diastólica (mmHg)<br>
+                                    PAS = pressão arterial sistólica (mmHg)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">PAD=80, PAS=120: PAM = 80 + (120-80)/3 = 93,3 mmHg</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-17" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-17)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ÍNDICE DE MASSA CORPORAL</div>
+                            <h3 class="formula-title">IMC (Body Mass Index)</h3>
+                            <div class="formula">IMC = massa / altura²</div>
+                            <p class="description">O índice de massa corporal relaciona peso e altura para avaliar o estado nutricional de uma pessoa.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    IMC = índice de massa corporal (kg/m²)<br>
+                                    massa = massa corporal (kg)<br>
+                                    altura = altura (m)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Categorias:</div>
+                                <div class="example-content"><18,5: abaixo do peso | 18,5-24,9: normal | 25-29,9: sobrepeso | ≥30: obeso</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Taxas Vitais -->
+        <section class="section">
+            <h2 class="section-title">Taxas Vitais e Demografia</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-18" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-18)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">NATALIDADE</div>
+                            <h3 class="formula-title">Taxa de Natalidade</h3>
+                            <div class="formula">n = (nascimentos/população) × 1000</div>
+                            <p class="description">A taxa de natalidade indica o número de nascimentos por mil habitantes em um determinado período.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    n = taxa de natalidade (nascimentos/1000 hab)<br>
+                                    nascimentos = número total de nascimentos<br>
+                                    população = tamanho da população
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Unidade:</div>
+                                <div class="example-content">nascimentos por 1000 habitantes por ano</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="purple-gradient-19" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#purple-gradient-19)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">MORTALIDADE</div>
+                            <h3 class="formula-title">Taxa de Mortalidade</h3>
+                            <div class="formula">m = (mortes/população) × 1000</div>
+                            <p class="description">A taxa de mortalidade indica o número de mortes por mil habitantes em um determinado período.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    m = taxa de mortalidade (mortes/1000 hab)<br>
+                                    mortes = número total de mortes<br>
+                                    população = tamanho da população
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Unidade:</div>
+                                <div class="example-content">mortes por 1000 habitantes por ano</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

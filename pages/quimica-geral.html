@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Química Geral - Fórmulas Fundamentais</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            padding: 2rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .breadcrumb a {
+            color: #f97316;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #f97316, #ea580c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #f97316;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .card-wrapper {
+            position: relative;
+        }
+
+        .glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            filter: blur(40px);
+            opacity: 0.3;
+            background: #f97316;
+        }
+
+        .card {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            overflow: hidden;
+            min-height: 300px;
+            border: 2px solid #f97316;
+        }
+
+        .electric-border {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .electric-border rect {
+            animation: electric-flow 4s linear infinite;
+        }
+
+        .orange-border { 
+            filter: drop-shadow(0 0 6px #f97316) drop-shadow(0 0 12px #ea580c); 
+        }
+
+        .lightning-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            font-size: 12px;
+            color: #f97316;
+            text-shadow: 0 0 10px #f97316;
+            animation: lightning-flash 3s ease-in-out infinite;
+        }
+
+        .lightning-bolt:nth-child(1) { top: 10%; left: 5%; }
+        .lightning-bolt:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
+        .lightning-bolt:nth-child(3) { bottom: 15%; left: 12%; animation-delay: 1s; }
+        .lightning-bolt:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; }
+
+        .card-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #f97316;
+        }
+
+        .formula-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .formula {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid #f97316;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #fed7aa;
+            text-align: center;
+        }
+
+        .description {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .variables {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .variables-title {
+            color: #f97316;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .variables-list {
+            color: #d1d5db;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .example {
+            background: rgba(249, 115, 22, 0.05);
+            border-left: 3px solid #f97316;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-title {
+            color: #f97316;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-content {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        @keyframes electric-flow {
+            0% { stroke-dashoffset: 800; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes lightning-flash {
+            0%, 100% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+            10% { 
+                opacity: 1;
+                transform: scale(1) translateY(-3px);
+            }
+            20% { 
+                opacity: 0.5;
+                transform: scale(0.8) translateY(-2px);
+            }
+            30% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="breadcrumb">
+                <a href="../index.html">Início</a> > Química Geral
+            </nav>
+            <h1 class="main-title">Química Geral</h1>
+            <p class="subtitle">Estequiometria, soluções e propriedades fundamentais</p>
+        </header>
+
+        <!-- Estequiometria -->
+        <section class="section">
+            <h2 class="section-title">Estequiometria</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-1)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">MOLS</div>
+                            <h3 class="formula-title">Número de Mols</h3>
+                            <div class="formula">n = m / M</div>
+                            <p class="description">Número de mols é igual à massa da substância dividida pela sua massa molar. Base fundamental da estequiometria.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    n = número de mols (mol)<br>
+                                    m = massa da substância (g)<br>
+                                    M = massa molar (g/mol)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">Para 18g de H₂O: M = 18g/mol, então n = 18/18 = 1 mol</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-2)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">AVOGADRO</div>
+                            <h3 class="formula-title">Hipótese de Avogadro</h3>
+                            <div class="formula">n = N / Nₐ</div>
+                            <p class="description">Número de mols é igual ao número de partículas dividido pelo número de Avogadro. Relaciona quantidade microscópica com macroscópica.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    n = número de mols (mol)<br>
+                                    N = número de partículas<br>
+                                    Nₐ = 6,02×10²³ mol⁻¹ (Avogadro)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Constante de Avogadro:</div>
+                                <div class="example-content">Uma mol de qualquer substância contém 6,02×10²³ entidades</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-3)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">GASES</div>
+                            <h3 class="formula-title">Volume Molar (CNTP)</h3>
+                            <div class="formula">V = 22,4n</div>
+                            <p class="description">Volume ocupado por um mol de qualquer gás ideal nas condições normais de temperatura e pressão (CNTP: 0°C e 1 atm).</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    V = volume do gás (L)<br>
+                                    n = número de mols (mol)<br>
+                                    22,4 L/mol = volume molar CNTP
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">CNTP:</div>
+                                <div class="example-content">T = 0°C (273 K) | P = 1 atm (760 mmHg)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-4)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CLAPEYRON</div>
+                            <h3 class="formula-title">Equação dos Gases Ideais</h3>
+                            <div class="formula">PV = nRT</div>
+                            <p class="description">Equação de estado dos gases ideais. Relaciona pressão, volume, temperatura e número de mols.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    P = pressão (atm ou Pa)<br>
+                                    V = volume (L ou m³)<br>
+                                    n = número de mols (mol)<br>
+                                    R = constante universal (0,082 L·atm/(mol·K) ou 8,314 J/(mol·K))<br>
+                                    T = temperatura absoluta (K)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Soluções -->
+        <section class="section">
+            <h2 class="section-title">Soluções Químicas</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-5" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-5)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">MOLARIDADE</div>
+                            <h3 class="formula-title">Concentração Molar</h3>
+                            <div class="formula">M = n / V</div>
+                            <p class="description">Molaridade é o número de mols de soluto por litro de solução. É a unidade de concentração mais usada.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    M = molaridade (mol/L)<br>
+                                    n = mols de soluto (mol)<br>
+                                    V = volume da solução (L)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">Solução 0,5 M de NaCl: 0,5 mol de NaCl em 1 L de solução</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-6" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-6)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">DILUIÇÃO</div>
+                            <h3 class="formula-title">Lei da Diluição</h3>
+                            <div class="formula">M₁V₁ = M₂V₂</div>
+                            <p class="description">Em uma diluição, o produto da molaridade pelo volume permanece constante. Permite calcular concentrações após diluição.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    M₁, M₂ = molaridades inicial e final<br>
+                                    V₁, V₂ = volumes inicial e final<br>
+                                    V₂ > V₁ para diluição
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Aplicação:</div>
+                                <div class="example-content">Para diluir 2 L de solução 1 M para 0,5 M: V₂ = (1×2)/0,5 = 4 L</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-7" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-7)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">TÍTULO</div>
+                            <h3 class="formula-title">Título em Massa</h3>
+                            <div class="formula">T = m_soluto / m_solução</div>
+                            <p class="description">Título é a fração em massa do soluto na solução. Pode ser expresso como decimal ou porcentagem.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    T = título (adimensional)<br>
+                                    m_soluto = massa do soluto (g)<br>
+                                    m_solução = massa total da solução (g)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">10g de sal em 90g de água: T = 10/100 = 0,1 ou 10%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-8" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-8)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PPM</div>
+                            <h3 class="formula-title">Partes por Milhão</h3>
+                            <div class="formula">ppm = (m_soluto / m_solução) × 10⁶</div>
+                            <p class="description">Unidade de concentração usada para soluções muito diluídas. Uma ppm equivale a 1 mg de soluto por kg de solução.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    ppm = partes por milhão<br>
+                                    m_soluto = massa do soluto<br>
+                                    m_solução = massa da solução
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Uso típico:</div>
+                                <div class="example-content">Poluentes na água, contaminantes no ar</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Termoquímica -->
+        <section class="section">
+            <h2 class="section-title">Termoquímica</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-9" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-9)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ENTALPIA</div>
+                            <h3 class="formula-title">Variação de Entalpia</h3>
+                            <div class="formula">ΔH = H_produtos - H_reagentes</div>
+                            <p class="description">Variação de entalpia de uma reação. Se ΔH < 0: exotérmica (libera calor). Se ΔH > 0: endotérmica (absorve calor).</p>
+                            <div class="variables">
+                                <div class="variables-title">Interpretação:</div>
+                                <div class="variables-list">
+                                    ΔH < 0: reação exotérmica<br>
+                                    ΔH > 0: reação endotérmica<br>
+                                    ΔH = 0: reação atermica
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplo:</div>
+                                <div class="example-content">Combustão da gasolina: ΔH = -890 kJ/mol (exotérmica)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-10" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-10)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">LEI DE HESS</div>
+                            <h3 class="formula-title">Aditividade de Entalpias</h3>
+                            <div class="formula">ΔH_total = ΔH₁ + ΔH₂ + ΔH₃ + ...</div>
+                            <p class="description">A variação de entalpia de uma reação é igual à soma das variações de entalpia das etapas em que a reação pode ser dividida.</p>
+                            <div class="variables">
+                                <div class="variables-title">Aplicação:</div>
+                                <div class="variables-list">
+                                    Cálculo de ΔH de reações indiretas<br>
+                                    Reações que não ocorrem diretamente<br>
+                                    Base para tabelas de entalpias
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cinética Química -->
+        <section class="section">
+            <h2 class="section-title">Cinética Química</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-11" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-11)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">VELOCIDADE</div>
+                            <h3 class="formula-title">Velocidade de Reação</h3>
+                            <div class="formula">v = Δ[concentração]/Δt</div>
+                            <p class="description">A velocidade de uma reação química é definida como a variação da concentração dos reagentes ou produtos por unidade de tempo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    v = velocidade da reação (mol/L·s)<br>
+                                    Δ[concentração] = variação da concentração (mol/L)<br>
+                                    Δt = intervalo de tempo (s)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Expressão:</div>
+                                <div class="example-content">Para aA → produtos: v = -(1/a)·d[A]/dt</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-12" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-12)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">LEI DA VELOCIDADE</div>
+                            <h3 class="formula-title">Lei de Velocidade</h3>
+                            <div class="formula">v = k[A]ᵃ[B]ᵇ</div>
+                            <p class="description">A velocidade de uma reação é proporcional às concentrações dos reagentes elevadas às suas respectivas ordens de reação.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    v = velocidade da reação<br>
+                                    k = constante de velocidade<br>
+                                    [A], [B] = concentrações dos reagentes (mol/L)<br>
+                                    a, b = ordens de reação
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Exemplos:</div>
+                                <div class="example-content">v = k[A] (1ª ordem) | v = k[A][B] (2ª ordem global)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-13" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-13)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ARRHENIUS</div>
+                            <h3 class="formula-title">Equação de Arrhenius</h3>
+                            <div class="formula">k = A·e^(-Ea/RT)</div>
+                            <p class="description">A constante de velocidade de uma reação varia exponencialmente com a temperatura e a energia de ativação.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    k = constante de velocidade<br>
+                                    A = fator pré-exponencial<br>
+                                    Ea = energia de ativação (J/mol)<br>
+                                    R = 8,314 J/(mol·K)<br>
+                                    T = temperatura absoluta (K)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-14" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-14)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">MEIA-VIDA</div>
+                            <h3 class="formula-title">Meia-vida (1ª Ordem)</h3>
+                            <div class="formula">t₁/₂ = 0,693/k</div>
+                            <p class="description">Para reações de primeira ordem, a meia-vida é independente da concentração inicial e depende apenas da constante de velocidade.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    t₁/₂ = meia-vida (s)<br>
+                                    k = constante de velocidade (s⁻¹)<br>
+                                    0,693 = ln(2)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Característica:</div>
+                                <div class="example-content">Independent da concentração inicial</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equilíbrio Químico -->
+        <section class="section">
+            <h2 class="section-title">Equilíbrio Químico</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-15" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-15)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">CONSTANTE DE EQUILÍBRIO</div>
+                            <h3 class="formula-title">Lei da Ação das Massas</h3>
+                            <div class="formula">Kc = [C]ᶜ[D]ᵈ / [A]ᵃ[B]ᵇ</div>
+                            <p class="description">Para a reação reversível aA + bB ⇌ cC + dD, a constante de equilíbrio expressa a relação entre as concentrações no equilíbrio.</p>
+                            <div class="variables">
+                                <div class="variables-title">Para a reação:</div>
+                                <div class="variables-list">
+                                    aA + bB ⇌ cC + dD<br>
+                                    [A], [B], [C], [D] = concentrações no equilíbrio (mol/L)<br>
+                                    a, b, c, d = coeficientes estequiométricos
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Interpretação:</div>
+                                <div class="example-content">Kc > 1: produtos favorecidos | Kc < 1: reagentes favorecidos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-16" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-16)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">QUOCIENTE DE REAÇÃO</div>
+                            <h3 class="formula-title">Quociente de Reação</h3>
+                            <div class="formula">Q = [C]ᶜ[D]ᵈ / [A]ᵃ[B]ᵇ</div>
+                            <p class="description">O quociente de reação tem a mesma forma da constante de equilíbrio, mas usa as concentrações em qualquer momento da reação.</p>
+                            <div class="variables">
+                                <div class="variables-title">Comparação com Kc:</div>
+                                <div class="variables-list">
+                                    Q < Kc: reação favorece produtos (→)<br>
+                                    Q > Kc: реакция favorece reagentes (←)<br>
+                                    Q = Kc: sistema em equilíbrio
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Aplicação:</div>
+                                <div class="example-content">Prediz a direção da reação</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-17" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-17)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">GRAU DE IONIZAÇÃO</div>
+                            <h3 class="formula-title">Grau de Ionização</h3>
+                            <div class="formula">α = n_ionizado/n_inicial</div>
+                            <p class="description">O grau de ionização representa a fração de moléculas que se ionizam em uma solução. É usado para ácidos e bases fracos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    α = grau de ionização (0 a 1 ou 0% a 100%)<br>
+                                    n_ionizado = número de moléculas ionizadas<br>
+                                    n_inicial = número inicial de moléculas
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Ácidos fracos:</div>
+                                <div class="example-content">α << 1 (geralmente α < 0,1)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equilíbrio Iônico -->
+        <section class="section">
+            <h2 class="section-title">Equilíbrio Iônico</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-18" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-18)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">pH</div>
+                            <h3 class="formula-title">Potencial Hidrogeniônico</h3>
+                            <div class="formula">pH = -log[H⁺]</div>
+                            <p class="description">O pH é uma medida da acidez de uma solução, definido como o logaritmo negativo da concentração de íons hidrogênio.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    pH = potencial hidrogeniônico (adimensional)<br>
+                                    [H⁺] = concentração de H⁺ (mol/L)<br>
+                                    log = logaritmo na base 10
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Escala:</div>
+                                <div class="example-content">pH 0-7: ácido | pH 7: neutro | pH 7-14: básico</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-19" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-19)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">PRODUTO IÔNICO</div>
+                            <h3 class="formula-title">Produto Iônico da Água</h3>
+                            <div class="formula">Kw = [H⁺][OH⁻] = 10⁻¹⁴</div>
+                            <p class="description">A constante de produto iônico da água relaciona as concentrações dos íons H⁺ e OH⁻ em solução aquosa a 25°C.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis (25°C):</div>
+                                <div class="variables-list">
+                                    Kw = 1,0×10⁻¹⁴<br>
+                                    [H⁺] = [OH⁻] = 10⁻⁷ mol/L (água pura)<br>
+                                    pH + pOH = 14
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Neutralidade:</div>
+                                <div class="example-content">[H⁺] = [OH⁻] = 10⁻⁷ mol/L</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-20" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-20)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">HENDERSON-HASSELBALCH</div>
+                            <h3 class="formula-title">Equação de Henderson-Hasselbalch</h3>
+                            <div class="formula">pH = pKa + log([A⁻]/[HA])</div>
+                            <p class="description">Equação fundamental para calcular o pH de soluções tampão, relacionando o pH com o pKa e as concentrações da forma ácida e básica.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    pH = potencial hidrogeniônico<br>
+                                    pKa = -log(Ka)<br>
+                                    [A⁻] = concentração da base conjugada (mol/L)<br>
+                                    [HA] = concentração do ácido (mol/L)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Tampão:</div>
+                                <div class="example-content">pH ≈ pKa quando [A⁻] = [HA]</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eletroquímica -->
+        <section class="section">
+            <h2 class="section-title">Eletroquímica</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-21" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-21)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">EQUAÇÃO DE NERNST</div>
+                            <h3 class="formula-title">Equação de Nernst</h3>
+                            <div class="formula">E = E° - (0,059/n)·log Q</div>
+                            <p class="description">A equação de Nernst relaciona o potencial de uma célula com as concentrações dos reagentes e produtos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis (25°C):</div>
+                                <div class="variables-list">
+                                    E = potencial da célula (V)<br>
+                                    E° = potencial padrão (V)<br>
+                                    n = número de elétrons transferidos<br>
+                                    Q = quociente de reação<br>
+                                    0,059 = constante a 25°C
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-22" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-22)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">FARADAY</div>
+                            <h3 class="formula-title">Lei de Faraday</h3>
+                            <div class="formula">m = (M·i·t)/(n·F)</div>
+                            <p class="description">A lei de Faraday relaciona a massa de substância depositada ou liberada com a carga elétrica que atravessa a célula eletrolítica.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    m = massa depositada (g)<br>
+                                    M = massa molar (g/mol)<br>
+                                    i = corrente elétrica (A)<br>
+                                    t = tempo (s)<br>
+                                    n = número de elétrons<br>
+                                    F = 96500 C/mol (Faraday)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Radioatividade -->
+        <section class="section">
+            <h2 class="section-title">Radioatividade</h2>
+            <div class="grid">
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-23" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-23)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">LEI DE DECAIMENTO</div>
+                            <h3 class="formula-title">Desintegração Radioativa</h3>
+                            <div class="formula">N = N₀·e^(-λt)</div>
+                            <p class="description">A lei do decaimento radioativo descreve como o número de núcleos radioativos diminui exponencialmente com o tempo.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    N = número de núcleos restantes no tempo t<br>
+                                    N₀ = número inicial de núcleos<br>
+                                    λ = constante de desintegração (s⁻¹)<br>
+                                    t = tempo (s)
+                                </div>
+                            </div>
+                            <div class="example">
+                                <div class="example-title">Natureza:</div>
+                                <div class="example-content">Processo aleatório e exponencial</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-wrapper">
+                    <div class="glow"></div>
+                    <div class="card">
+                        <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="orange-gradient-24" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ea580c" stop-opacity="0.3" />
+                                    <stop offset="50%" stop-color="#f97316" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#ea580c" stop-opacity="0.3" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                                  stroke="url(#orange-gradient-24)" stroke-width="0.8" stroke-dasharray="400" 
+                                  vector-effect="non-scaling-stroke" />
+                        </svg>
+                        <div class="lightning-container">
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                            <div class="lightning-bolt">⚡</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-label">ATIVIDADE RADIOATIVA</div>
+                            <h3 class="formula-title">Atividade Radioativa</h3>
+                            <div class="formula">A = λN = A₀·e^(-λt)</div>
+                            <p class="description">A atividade radioativa é o número de desintegrações por unidade de tempo. Decresce exponencialmente como o número de núcleos.</p>
+                            <div class="variables">
+                                <div class="variables-title">Variáveis:</div>
+                                <div class="variables-list">
+                                    A = atividade radioativa (Bq ou Ci)<br>
+                                    λ = constante de desintegração (s⁻¹)<br>
+                                    N = número de núcleos restantes<br>
+                                    A₀ = atividade inicial<br>
+                                    1 Bq = 1 desintegração/s
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

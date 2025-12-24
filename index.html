@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apêndice Completo de Fórmulas Científicas</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000;
+            padding: 3rem 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #22d3ee, #3b82f6, #8b5cf6, #f97316);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #22d3ee;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .card-wrapper {
+            position: relative;
+        }
+
+        .glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            filter: blur(40px);
+            opacity: 0.3;
+        }
+
+        .glow.cyan { background: #22d3ee; }
+        .glow.orange { background: #fb923c; }
+        .glow.purple { background: #a855f7; }
+        .glow.green { background: #10b981; }
+        .glow.red { background: #ef4444; }
+        .glow.blue { background: #3b82f6; }
+        .glow.pink { background: #ec4899; }
+
+        /* Card principal seguindo padrão do eletro.html */
+        .category-card {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            overflow: hidden;
+            min-height: 320px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .electric-border {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .electric-border rect {
+            animation: electric-flow 4s linear infinite;
+        }
+
+        .cyan-border { filter: drop-shadow(0 0 6px #22d3ee) drop-shadow(0 0 12px #06b6d4); }
+        .orange-border { filter: drop-shadow(0 0 6px #fb923c) drop-shadow(0 0 12px #f97316); }
+        .purple-border { filter: drop-shadow(0 0 6px #c084fc) drop-shadow(0 0 12px #a855f7); }
+        .green-border { filter: drop-shadow(0 0 6px #34d399) drop-shadow(0 0 12px #10b981); }
+        .red-border { filter: drop-shadow(0 0 6px #f87171) drop-shadow(0 0 12px #ef4444); }
+        .blue-border { filter: drop-shadow(0 0 6px #60a5fa) drop-shadow(0 0 12px #3b82f6); }
+        .pink-border { filter: drop-shadow(0 0 6px #f472b6) drop-shadow(0 0 12px #ec4899); }
+
+        /* Raios de trovão */
+        .lightning-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            font-size: 12px;
+            animation: lightning-flash 3s ease-in-out infinite;
+        }
+
+        .lightning-bolt.cyan { color: #22d3ee; text-shadow: 0 0 10px #22d3ee; }
+        .lightning-bolt.orange { color: #fb923c; text-shadow: 0 0 10px #fb923c; }
+        .lightning-bolt.purple { color: #c084fc; text-shadow: 0 0 10px #c084fc; }
+        .lightning-bolt.green { color: #34d399; text-shadow: 0 0 10px #34d399; }
+        .lightning-bolt.red { color: #f87171; text-shadow: 0 0 10px #f87171; }
+        .lightning-bolt.blue { color: #60a5fa; text-shadow: 0 0 10px #60a5fa; }
+        .lightning-bolt.pink { color: #f472b6; text-shadow: 0 0 10px #f472b6; }
+
+        .lightning-bolt:nth-child(1) { top: 10%; left: 5%; }
+        .lightning-bolt:nth-child(2) { top: 30%; right: 8%; animation-delay: 0.5s; }
+        .lightning-bolt:nth-child(3) { bottom: 15%; left: 12%; animation-delay: 1s; }
+        .lightning-bolt:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; }
+
+        .card-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-label.cyan { color: #22d3ee; }
+        .card-label.orange { color: #fb923c; }
+        .card-label.purple { color: #c084fc; }
+        .card-label.green { color: #34d399; }
+        .card-label.red { color: #f87171; }
+        .card-label.blue { color: #60a5fa; }
+        .card-label.pink { color: #f472b6; }
+
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .card-description {
+            color: #9ca3af;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .formula-count {
+            color: #6b7280;
+            font-size: 0.75rem;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+
+
+        /* Animações */
+        @keyframes electric-flow {
+            0% { stroke-dashoffset: 800; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes lightning-flash {
+            0%, 100% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+            10% { 
+                opacity: 1;
+                transform: scale(1) translateY(-3px);
+            }
+            20% { 
+                opacity: 0.5;
+                transform: scale(0.8) translateY(-2px);
+            }
+            30% { 
+                opacity: 0;
+                transform: scale(0.5) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .stats {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header class="header">
+            <h1 class="main-title">Apêndice de Fórmulas Científicas</h1>
+            <p class="subtitle">Mais de 800 fórmulas organizadas em disciplinas</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">800+</div>
+                    <div class="stat-label">Fórmulas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Disciplinas</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="categories-grid">
+            <!-- MATEMÁTICA -->
+            <div class="card-wrapper">
+                <div class="glow cyan"></div>
+                <a href="pages/matematica-algebra.html" class="category-card">
+                    <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="cyan-gradient-math" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.3" />
+                                <stop offset="50%" stop-color="#22d3ee" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.3" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                              stroke="url(#cyan-gradient-math)" stroke-width="0.8" stroke-dasharray="400" 
+                              vector-effect="non-scaling-stroke" />
+                    </svg>
+                    <div class="lightning-container">
+                        <div class="lightning-bolt cyan">⚡</div>
+                        <div class="lightning-bolt cyan">⚡</div>
+                        <div class="lightning-bolt cyan">⚡</div>
+                        <div class="lightning-bolt cyan">⚡</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label cyan">MATEMÁTICA</div>
+                        <h2 class="card-title">Álgebra e Geometria</h2>
+                        <p class="card-description">Fórmulas fundamentais de álgebra, geometria plana e espacial, trigonometria e cálculo.</p>
+                        <div class="formula-count">150+ fórmulas disponíveis</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- FÍSICA -->
+            <div class="card-wrapper">
+                <div class="glow green"></div>
+                <a href="pages/fisica-cinematica.html" class="category-card">
+                    <svg class="electric-border green-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="green-gradient-physics" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#10b981" stop-opacity="0.3" />
+                                <stop offset="50%" stop-color="#34d399" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#10b981" stop-opacity="0.3" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                              stroke="url(#green-gradient-physics)" stroke-width="0.8" stroke-dasharray="400" 
+                              vector-effect="non-scaling-stroke" />
+                    </svg>
+                    <div class="lightning-container">
+                        <div class="lightning-bolt green">⚡</div>
+                        <div class="lightning-bolt green">⚡</div>
+                        <div class="lightning-bolt green">⚡</div>
+                        <div class="lightning-bolt green">⚡</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label green">FÍSICA</div>
+                        <h2 class="card-title">Mecânica e Eletromagnetismo</h2>
+                        <p class="card-description">Leis da mecânica, termodinâmica, eletromagnetismo, óptica e física moderna.</p>
+                        <div class="formula-count">200+ fórmulas disponíveis</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- QUÍMICA -->
+            <div class="card-wrapper">
+                <div class="glow orange"></div>
+                <a href="pages/quimica-geral.html" class="category-card">
+                    <svg class="electric-border orange-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="orange-gradient-chem" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f97316" stop-opacity="0.3" />
+                                <stop offset="50%" stop-color="#fb923c" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#f97316" stop-opacity="0.3" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                              stroke="url(#orange-gradient-chem)" stroke-width="0.8" stroke-dasharray="400" 
+                              vector-effect="non-scaling-stroke" />
+                    </svg>
+                    <div class="lightning-container">
+                        <div class="lightning-bolt orange">⚡</div>
+                        <div class="lightning-bolt orange">⚡</div>
+                        <div class="lightning-bolt orange">⚡</div>
+                        <div class="lightning-bolt orange">⚡</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label orange">QUÍMICA</div>
+                        <h2 class="card-title">Química Geral e Orgânica</h2>
+                        <p class="card-description">Estequiometria, equilíbrio químico, termoquímica, cinética e química orgânica.</p>
+                        <div class="formula-count">120+ fórmulas disponíveis</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- BIOLOGIA -->
+            <div class="card-wrapper">
+                <div class="glow purple"></div>
+                <a href="pages/biologia-genetica.html" class="category-card">
+                    <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="purple-gradient-bio" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#a855f7" stop-opacity="0.3" />
+                                <stop offset="50%" stop-color="#c084fc" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#a855f7" stop-opacity="0.3" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                              stroke="url(#purple-gradient-bio)" stroke-width="0.8" stroke-dasharray="400" 
+                              vector-effect="non-scaling-stroke" />
+                    </svg>
+                    <div class="lightning-container">
+                        <div class="lightning-bolt purple">⚡</div>
+                        <div class="lightning-bolt purple">⚡</div>
+                        <div class="lightning-bolt purple">⚡</div>
+                        <div class="lightning-bolt purple">⚡</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label purple">BIOLOGIA</div>
+                        <h2 class="card-title">Genética e Bioquímica</h2>
+                        <p class="card-description">Genética molecular, bioquímica, fisiologia, ecologia e evolução.</p>
+                        <div class="formula-count">80+ fórmulas disponíveis</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- COMPUTAÇÃO -->
+            <div class="card-wrapper">
+                <div class="glow blue"></div>
+                <a href="pages/computacao-algoritmos.html" class="category-card">
+                    <svg class="electric-border blue-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="blue-gradient-comp" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.3" />
+                                <stop offset="50%" stop-color="#60a5fa" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.3" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                              stroke="url(#blue-gradient-comp)" stroke-width="0.8" stroke-dasharray="400" 
+                              vector-effect="non-scaling-stroke" />
+                    </svg>
+                    <div class="lightning-container">
+                        <div class="lightning-bolt blue">⚡</div>
+                        <div class="lightning-bolt blue">⚡</div>
+                        <div class="lightning-bolt blue">⚡</div>
+                        <div class="lightning-bolt blue">⚡</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label blue">COMPUTAÇÃO</div>
+                        <h2 class="card-title">Algoritmos e Estruturas</h2>
+                        <p class="card-description">Complexidade de algoritmos, estruturas de dados, machine learning e processamento de sinais.</p>
+                        <div class="formula-count">100+ fórmulas disponíveis</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- ENGENHARIA -->
+            <div class="card-wrapper">
+                <div class="glow red"></div>
+                <a href="pages/engenharia.html" class="category-card">
+                    <svg class="electric-border red-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="red-gradient-eng" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ef4444" stop-opacity="0.3" />
+                                <stop offset="50%" stop-color="#f87171" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#ef4444" stop-opacity="0.3" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                              stroke="url(#red-gradient-eng)" stroke-width="0.8" stroke-dasharray="400" 
+                              vector-effect="non-scaling-stroke" />
+                    </svg>
+                    <div class="lightning-container">
+                        <div class="lightning-bolt red">⚡</div>
+                        <div class="lightning-bolt red">⚡</div>
+                        <div class="lightning-bolt red">⚡</div>
+                        <div class="lightning-bolt red">⚡</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label red">ENGENHARIA</div>
+                        <h2 class="card-title">Materiais e Controle</h2>
+                        <p class="card-description">Resistência de materiais, mecânica dos fluidos, controle automático e produção.</p>
+                        <div class="formula-count">90+ fórmulas disponíveis</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- ECONOMIA -->
+            <div class="card-wrapper">
+                <div class="glow cyan"></div>
+                <a href="pages/economia-financas.html" class="category-card">
+                    <svg class="electric-border cyan-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="cyan-gradient-eco" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.3" />
+                                <stop offset="50%" stop-color="#22d3ee" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.3" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                              stroke="url(#cyan-gradient-eco)" stroke-width="0.8" stroke-dasharray="400" 
+                              vector-effect="non-scaling-stroke" />
+                    </svg>
+                    <div class="lightning-container">
+                        <div class="lightning-bolt cyan">⚡</div>
+                        <div class="lightning-bolt cyan">⚡</div>
+                        <div class="lightning-bolt cyan">⚡</div>
+                        <div class="lightning-bolt cyan">⚡</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label cyan">ECONOMIA</div>
+                        <h2 class="card-title">Micro e Macroeconomia</h2>
+                        <p class="card-description">Teoria econômica, finanças corporativas, econometria e mercados financeiros.</p>
+                        <div class="formula-count">60+ fórmulas disponíveis</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- ASTRONOMIA -->
+            <div class="card-wrapper">
+                <div class="glow purple"></div>
+                <a href="pages/astronomia.html" class="category-card">
+                    <svg class="electric-border purple-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="purple-gradient-astro" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#a855f7" stop-opacity="0.3" />
+                                <stop offset="50%" stop-color="#c084fc" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#a855f7" stop-opacity="0.3" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                              stroke="url(#purple-gradient-astro)" stroke-width="0.8" stroke-dasharray="400" 
+                              vector-effect="non-scaling-stroke" />
+                    </svg>
+                    <div class="lightning-container">
+                        <div class="lightning-bolt purple">⚡</div>
+                        <div class="lightning-bolt purple">⚡</div>
+                        <div class="lightning-bolt purple">⚡</div>
+                        <div class="lightning-bolt purple">⚡</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label purple">ASTRONOMIA</div>
+                        <h2 class="card-title">Cosmologia e Astrofísica</h2>
+                        <p class="card-description">Leis de Kepler, relatividade, cosmologia e propriedades estelares.</p>
+                        <div class="formula-count">40+ fórmulas disponíveis</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- FARMACOLOGIA -->
+            <div class="card-wrapper">
+                <div class="glow pink"></div>
+                <a href="pages/farmacologia.html" class="category-card">
+                    <svg class="electric-border pink-border" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="pink-gradient-pharma" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#db2777" stop-opacity="0.3" />
+                                <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#db2777" stop-opacity="0.3" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0.5" y="0.5" width="99" height="99" rx="4" fill="none" 
+                              stroke="url(#pink-gradient-pharma)" stroke-width="0.8" stroke-dasharray="400" 
+                              vector-effect="non-scaling-stroke" />
+                    </svg>
+                    <div class="lightning-container">
+                        <div class="lightning-bolt pink">⚡</div>
+                        <div class="lightning-bolt pink">⚡</div>
+                        <div class="lightning-bolt pink">⚡</div>
+                        <div class="lightning-bolt pink">⚡</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-label pink">FARMACOLOGIA</div>
+                        <h2 class="card-title">Dosagem e Farmacocinética</h2>
+                        <p class="card-description">Cálculo de doses, concentrações, farmacocinética e interações medicamentosas.</p>
+                        <div class="formula-count">50+ fórmulas disponíveis</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
