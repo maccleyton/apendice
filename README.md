@@ -234,7 +234,7 @@ Este projeto é de uso educacional e de referência. As fórmulas apresentadas s
 
 - **Design**: Inspirado em cards elétricos modernos
 - **Fórmulas**: Compilação de conhecimento científico padrão
-- **Desenvolvimento**: MiniMax Agent
+- **Desenvolvimento**: Cleyton Macedo + Agentes de IA
 - **Estrutura**: HTML5, CSS3, SVG
 
 ---
